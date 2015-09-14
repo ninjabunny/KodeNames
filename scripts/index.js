@@ -36,18 +36,18 @@ function createNewGame(){
 		var word = data[randomNumber];
 		wordsSelected.push(word);
 		// removeItem(data, randomNumber);
-		trs[i%5] += "<td id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\">" + word + "</td>";
+		trs[i%5] += "<div class=\"word\" id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\"><div>" + word + "</div></div>";
 	}
 	for (var i = 0; i < trs.length; i++){
-		document.getElementById("board").innerHTML += '<tr>'+trs[i]+'</tr>'
+		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>'
 	}
 	//create teams
 	for(var i = 0; i < 8; i++){
-		teams.push("red");
-		teams.push("yellow");
-		teams.push("blue");
+		teams.push("#FF4242");
+		teams.push("#FFFF99");
+		teams.push("#208FFF");
 	}
-	teams.push("grey")
+	teams.push("black")
 	shuffle(teams);
 
 }
@@ -56,6 +56,9 @@ function clicked(value){
 	var word = document.getElementById(value).innerHTML;
 	if (window.confirm("Are sure you want to select '"+word+"'?")){
 		document.getElementById(value).style.backgroundColor = teams[value];
+		if (teams[value] == "black"){
+			document.getElementById(value).style.color = "white";
+		}
 	}
 }
 
