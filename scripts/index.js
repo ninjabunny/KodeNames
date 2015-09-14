@@ -53,7 +53,7 @@ function createNewGame(){
 }
 
 function clicked(value){
-	var word = document.getElementById(value).innerHTML;
+	var word = wordsSelected[value];
 	if (window.confirm("Are sure you want to select '"+word+"'?")){
 		document.getElementById(value).style.backgroundColor = teams[value];
 		if (teams[value] == "black"){
