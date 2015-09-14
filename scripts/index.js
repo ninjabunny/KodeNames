@@ -48,9 +48,13 @@ function createNewGame(){
 	}
 	// one extra for one of the teams
 	if(Math.floor(Math.random() * data.length) % 2 === 0){
-		teams.push("#FF4242");	
+		teams.push("#FF4242");
+		document.getElementById("team").style.color = "#FF4242";
+		document.getElementById("team").innerHTML = "RED";
 	}else{
 		teams.push("#208FFF");
+		document.getElementById("team").style.color = "#208FFF";
+		document.getElementById("team").innerHTML = "BLUE";
 	}
 	
 
