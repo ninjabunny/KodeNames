@@ -46,11 +46,16 @@ function createNewGame(){
 		teams.push("#FF4242");
 		teams.push("#208FFF");
 	}
-	// one extra for team one
-	teams.push("#FF4242");
+	// one extra for one of the teams
+	if(Math.floor(Math.random() * data.length) % 2 === 0){
+		teams.push("#FF4242");	
+	}else{
+		teams.push("#208FFF");
+	}
+	
+
 	for(var i = 0; i < 7; i++){
 		teams.push("#FFFF99");
-
 	}
 	// push the assasin
 	teams.push("black")
