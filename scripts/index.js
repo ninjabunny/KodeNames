@@ -65,6 +65,9 @@ function clicked(value){
 function spyMaster(){
 	for(var i = 0; i < NUMBER_OF_WORDS; i++){
 		document.getElementById(i).style.backgroundColor = teams[i];
+		if (teams[i] == "black"){
+			document.getElementById(i).style.color = "white";
+		}
 	}
 }
 
