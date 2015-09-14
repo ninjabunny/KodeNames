@@ -1,10 +1,21 @@
+/*
+Notes: 
+'data' is lazily imported from the html
+'seedrandom' is also imported from html. it gives deterministic random #s based on a seed set in fire()
+*/
+
 var wordsSelected = [];
 var teams = [];
 var NUMBER_OF_WORDS = 25;
 var spyMasterMode = false;
 
+var COLOR_RED = "#FF4242";
+var COLOR_YELLOW = "#FFFF99";
+var COLOR_BLUE = "#208FFF";
+var COLOR_BLACK = "black";
+
 function fire(){
-	//get seed
+	//get seed and set the seed for randomizer
 	var seed = document.getElementById("seed").value;
 	Math.seedrandom(seed);
 
@@ -12,14 +23,13 @@ function fire(){
 	wordsSelected = [];
 	teams = [];
 	spyMasterMode = false;
+	document.getElementById("board").innerHTML = "";
 
 	//fire new board
 	createNewGame();
-	// document.getElementById("p1").innerHTML = wordsSelected;
-
-
 }
 
+//not used, but probably useful at some point
 function removeItem(array, index){
 	if (index > -1) {
 		console.log("index: " + index + ", word: " + array[index] + " removed.");
@@ -27,8 +37,7 @@ function removeItem(array, index){
 	}
 }
 
-function createNewGame(){
-	document.getElementById("board").innerHTML = "";
+function createNewGame(){	
 	var trs = [];
 	for(var i = 0; i < NUMBER_OF_WORDS; i++){
 		if (!trs[i%5]){
@@ -37,35 +46,40 @@ function createNewGame(){
 		var randomNumber = Math.floor(Math.random() * data.length);
 		var word = data[randomNumber];
 		wordsSelected.push(word);
-		// removeItem(data, randomNumber);
 		trs[i%5] += "<div class=\"word\" id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\"><div>" + word + "</div></div>";
 	}
+
 	for (var i = 0; i < trs.length; i++){
 		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>'
 	}
+
 	//create teams
 	for(var i = 0; i < 8; i++){
-		teams.push("#FF4242");
-		teams.push("#208FFF");
+		teams.push(COLOR_RED);
+		teams.push(COLOR_BLUE);
 	}
+
 	// one extra for one of the teams
 	document.getElementById("first").innerHTML = " starts first.";
 	if(Math.floor(Math.random() * data.length) % 2 === 0){
-		teams.push("#FF4242");
-		document.getElementById("team").style.color = "#FF4242";
+		teams.push(COLOR_RED);
+		document.getElementById("team").style.color = COLOR_RED;
 		document.getElementById("team").innerHTML = "RED";
 	}else{
-		teams.push("#208FFF");
-		document.getElementById("team").style.color = "#208FFF";
+		teams.push(COLOR_BLUE);
+		document.getElementById("team").style.color = COLOR_BLUE;
 		document.getElementById("team").innerHTML = "BLUE";
 	}
 	
-
+	// add neturals 
 	for(var i = 0; i < 7; i++){
-		teams.push("#FFFF99");
+		teams.push(COLOR_YELLOW);
 	}
+
 	// push the assasin
-	teams.push("black")
+	teams.push(COLOR_BLACK)
+
+	//shuffle teams
 	shuffle(teams);
 
 }
@@ -112,6 +126,7 @@ function shuffle(array) {
   return array;
 }
 
+//enable pressing 'Enter' on seed field
 document.getElementById('seed').onkeypress = function(e){
     if (!e) e = window.event;
     var keyCode = e.keyCode || e.which;
