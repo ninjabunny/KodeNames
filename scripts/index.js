@@ -13,6 +13,7 @@ var COLOR_RED = "#FF4242";
 var COLOR_YELLOW = "#FFFF99";
 var COLOR_BLUE = "#208FFF";
 var COLOR_BLACK = "black";
+var COLOR_GREEN = "green";
 
 function fire(){
 	//get seed and set the seed for randomizer
@@ -93,6 +94,15 @@ function clicked(value){
 				document.getElementById(value).style.color = "white";
 			}
 		}	
+	} else {
+		//spymaster mode
+		// console.log(COLOR_GREEN + " hi "+document.getElementById(value).style.backgroundColor);
+		// if(!document.getElementById(value).style.backgroundColor === teams[value]){
+			document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
+		// } else {
+		// 	document.getElementById(value).style.backgroundColor = teams[value];
+		// }
+		
 	}
 }
 
