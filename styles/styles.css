@@ -1,10 +1,13 @@
 
-#board {
-	font-size : 1.5em;
+html {
 	font-family : "Verdana";
 }
 
-button, input {
+#board {
+	font-size : 1.5em;
+}
+
+button, input, span#first {
 	font-size : 1.3em;	
 }
 

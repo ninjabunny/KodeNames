@@ -44,9 +44,15 @@ function createNewGame(){
 	//create teams
 	for(var i = 0; i < 8; i++){
 		teams.push("#FF4242");
-		teams.push("#FFFF99");
 		teams.push("#208FFF");
 	}
+	// one extra for team one
+	teams.push("#FF4242");
+	for(var i = 0; i < 7; i++){
+		teams.push("#FFFF99");
+
+	}
+	// push the assasin
 	teams.push("black")
 	shuffle(teams);
 
