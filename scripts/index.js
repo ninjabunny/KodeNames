@@ -8,6 +8,7 @@ var wordsSelected = [];
 var teams = [];
 var NUMBER_OF_WORDS = 25;
 var spyMasterMode = false;
+var sessionData = [];
 
 var COLOR_RED = "#FF4242";
 var COLOR_YELLOW = "#FFFF99";
@@ -21,6 +22,7 @@ function fire(){
 	Math.seedrandom(seed);
 
 	//reset state to pristine state
+	sessionData = data.slice(0);
 	wordsSelected = [];
 	teams = [];
 	spyMasterMode = false;
@@ -44,8 +46,9 @@ function createNewGame(){
 		if (!trs[i%5]){
 			trs[i%5] = "";
 		}
-		var randomNumber = Math.floor(Math.random() * data.length);
-		var word = data[randomNumber];
+		var randomNumber = Math.floor(Math.random() * sessionData.length);
+		var word = sessionData[randomNumber];
+		removeItem(sessionData, randomNumber);
 		wordsSelected.push(word);
 		trs[i%5] += "<div class=\"word\" id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\"><div>" + word + "</div></div>";
 	}
