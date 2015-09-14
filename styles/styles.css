@@ -1,0 +1,28 @@
+
+body {
+	font-size : 1.5em;
+	font-family : "Verdana";
+}
+
+#board {
+	width : 98%;
+	height : 90%;
+	position : absolute;
+	bottom : 5px;
+	left : 5px;
+	right : 5px;
+	top : 40px;
+}
+
+#board td {
+	text-align : center;
+	cursor : pointer;
+	border : 2px #e2e2e2 solid;
+	border-radius : 5px;
+	font-weight : bold;
+	width : 19%;
+}
+
+#spymaster {
+	float : right;
+}

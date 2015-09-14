@@ -12,10 +12,12 @@
 </head>
 
 <body>
+  <button id="spymaster" onclick="spyMaster()">I am SpyMaster</button>
   <input type="text" id="seed" placeholder="seed">
-  <button onclick="fire()">Click me</button><br><br>
-  <div id='board'></div><br>
-  <button onclick="spyMaster()">I am SpyMaster</button>
+  <button onclick="fire()">Generate Game</button><br><br>
+
+  <table id="board">
+  </table>
 
   <script src="scripts/data.js"></script>
   <script src="scripts/seedrandom.js"></script>

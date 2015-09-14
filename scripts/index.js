@@ -27,12 +27,19 @@ function removeItem(array, index){
 
 function createNewGame(){
 	document.getElementById("board").innerHTML = "";
+	var trs = [];
 	for(var i = 0; i < NUMBER_OF_WORDS; i++){
+		if (!trs[i%5]){
+			trs[i%5] = "";
+		}
 		var randomNumber = Math.floor(Math.random() * data.length);
 		var word = data[randomNumber];
 		wordsSelected.push(word);
 		// removeItem(data, randomNumber);
-		document.getElementById("board").innerHTML+= "<span id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\">" + word + "</span><br>";
+		trs[i%5] += "<td id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\">" + word + "</td>";
+	}
+	for (var i = 0; i < trs.length; i++){
+		document.getElementById("board").innerHTML += '<tr>'+trs[i]+'</tr>'
 	}
 	//create teams
 	for(var i = 0; i < 8; i++){
@@ -46,7 +53,10 @@ function createNewGame(){
 }
 
 function clicked(value){
-	document.getElementById(value).style.backgroundColor = teams[value];
+	var word = document.getElementById(value).innerHTML;
+	if (window.confirm("Are sure you want to select '"+word+"'?")){
+		document.getElementById(value).style.backgroundColor = teams[value];
+	}
 }
 
 function spyMaster(){
