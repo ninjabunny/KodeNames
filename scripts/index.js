@@ -27,31 +27,53 @@ function removeItem(array, index){
 
 function createNewGame(){
 	document.getElementById("board").innerHTML = "";
+	var trs = [];
 	for(var i = 0; i < NUMBER_OF_WORDS; i++){
+		if (!trs[i%5]){
+			trs[i%5] = "";
+		}
 		var randomNumber = Math.floor(Math.random() * data.length);
 		var word = data[randomNumber];
 		wordsSelected.push(word);
 		// removeItem(data, randomNumber);
-		document.getElementById("board").innerHTML+= "<span id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\">" + word + "</span><br>";
+		trs[i%5] += "<div class=\"word\" id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\"><div>" + word + "</div></div>";
+	}
+	for (var i = 0; i < trs.length; i++){
+		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>'
 	}
 	//create teams
 	for(var i = 0; i < 8; i++){
-		teams.push("red");
-		teams.push("yellow");
-		teams.push("blue");
+		teams.push("#FF4242");
+		teams.push("#208FFF");
 	}
-	teams.push("grey")
+	// one extra for team one
+	teams.push("#FF4242");
+	for(var i = 0; i < 7; i++){
+		teams.push("#FFFF99");
+
+	}
+	// push the assasin
+	teams.push("black")
 	shuffle(teams);
 
 }
 
 function clicked(value){
-	document.getElementById(value).style.backgroundColor = teams[value];
+	var word = wordsSelected[value];
+	if (window.confirm("Are sure you want to select '"+word+"'?")){
+		document.getElementById(value).style.backgroundColor = teams[value];
+		if (teams[value] == "black"){
+			document.getElementById(value).style.color = "white";
+		}
+	}
 }
 
 function spyMaster(){
 	for(var i = 0; i < NUMBER_OF_WORDS; i++){
 		document.getElementById(i).style.backgroundColor = teams[i];
+		if (teams[i] == "black"){
+			document.getElementById(i).style.color = "white";
+		}
 	}
 }
 
