@@ -1,15 +1,17 @@
 var wordsSelected = [];
 var teams = [];
 var NUMBER_OF_WORDS = 25;
+var spyMasterMode = false;
 
 function fire(){
 	//get seed
 	var seed = document.getElementById("seed").value;
 	Math.seedrandom(seed);
 
-	//clear words
+	//reset state to pristine state
 	wordsSelected = [];
 	teams = [];
+	spyMasterMode = false;
 
 	//fire new board
 	createNewGame();
@@ -68,16 +70,20 @@ function createNewGame(){
 }
 
 function clicked(value){
-	var word = wordsSelected[value];
-	if (window.confirm("Are sure you want to select '"+word+"'?")){
-		document.getElementById(value).style.backgroundColor = teams[value];
-		if (teams[value] == "black"){
-			document.getElementById(value).style.color = "white";
-		}
+	if(!spyMasterMode){
+		var word = wordsSelected[value];
+		if (window.confirm("Are sure you want to select '"+word+"'?")){
+			document.getElementById(value).style.backgroundColor = teams[value];
+			if (teams[value] == "black"){
+				document.getElementById(value).style.color = "white";
+			}
+		}	
 	}
 }
 
 function spyMaster(){
+	//TODO: randomize or organize tiles for easier comparing
+	spyMasterMode = true;
 	for(var i = 0; i < NUMBER_OF_WORDS; i++){
 		document.getElementById(i).style.backgroundColor = teams[i];
 		if (teams[i] == "black"){
