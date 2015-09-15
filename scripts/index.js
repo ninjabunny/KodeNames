@@ -35,7 +35,7 @@ function fire(){
 //not used, but probably useful at some point
 function removeItem(array, index){
 	if (index > -1) {
-		console.log("index: " + index + ", word: " + array[index] + " removed.");
+		// console.log("index: " + index + ", word: " + array[index] + " removed.");
 	    array.splice(index, 1);
 	}
 }
@@ -90,13 +90,22 @@ function createNewGame(){
 
 function clicked(value){
 	if(!spyMasterMode){
+		//guessers mode
 		var word = wordsSelected[value];
-		if (window.confirm("Are sure you want to select '"+word+"'?")){
+		if(document.getElementById("confirm").checked){
+			if (window.confirm("Are sure you want to select '"+word+"'?")){
+				document.getElementById(value).style.backgroundColor = teams[value];
+				if (teams[value] == "black"){
+					document.getElementById(value).style.color = "white";
+				}
+			}
+		} else {
 			document.getElementById(value).style.backgroundColor = teams[value];
 			if (teams[value] == "black"){
 				document.getElementById(value).style.color = "white";
 			}
-		}	
+		}
+			
 	} else {
 		//spymaster mode
 		// console.log(COLOR_GREEN + " hi "+document.getElementById(value).style.backgroundColor);
