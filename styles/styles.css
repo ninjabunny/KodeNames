@@ -28,7 +28,7 @@ button, input, span#first {
 	text-align : center;
 	vertical-align : middle;
 	cursor : pointer;
-	border : 2px #e2e2e2 solid;
+	border : 2px #DDDDDD solid;
 	border-radius : 5px;
 	font-weight : bold;
 	width : 19%;
