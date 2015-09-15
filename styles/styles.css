@@ -67,4 +67,13 @@ button, input, span#first {
 
 #spymaster {
 	float : right;
+	margin-left: 10px;
+}
+
+#confirm {
+	float : right;
+}
+
+#confirmText {
+	float : right;	
 }
