@@ -4,6 +4,7 @@ Notes:
 'seedrandom' is also imported from html. it gives deterministic random #s based on a seed set in fire()
 */
 
+
 var wordsSelected = [];
 var teams = [];
 var NUMBER_OF_WORDS = 25;
@@ -12,7 +13,7 @@ var sessionData = [];
 
 var COLOR_RED = "#ff0000";
 var COLOR_YELLOW = "#ffff00";
-var COLOR_BLUE = "#0000ff";
+var COLOR_BLUE = "#00eeee";
 var COLOR_BLACK = "black";
 var COLOR_GREEN = "#009000";
 
