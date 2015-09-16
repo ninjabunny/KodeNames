@@ -12,11 +12,14 @@
 
 <body>
   <button id="spymaster" onclick="spyMaster()">I am SpyMaster</button>
-  <input type="text" id="seed" placeholder="seed">
-  <button onclick="fire()">Generate Game</button>
-  <span id="team"></span>
-  <span id="first"></span>
-  <div id="google_translate_element"></div><script type="text/javascript">
+  <div>
+    <input type="text" id="seed" placeholder="seed">
+    <button onclick="fire()">Generate Game</button>
+    <span id="team"></span>
+    <span id="first"></span>
+    <div id="google_translate_element"></div>
+  </div>
+  <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, gaTrack: true, gaId: 'UA-48676831-6'}, 'google_translate_element');
   }
