@@ -77,3 +77,6 @@ button, input, span#first {
 #confirmText {
 	float : right;	
 }
+#google_translate_element {
+	float: right;
+}
