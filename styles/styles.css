@@ -1,3 +1,7 @@
+a:link {color: black;}      /* unvisited link */
+a:visited {color: black;}   /* visited link */
+a:hover {color: black;}     /* mouse over link */
+a:active {color: black;}    /* selected link */
 
 html {
 	font-family : "Verdana";
@@ -82,4 +86,12 @@ button, input, span#first {
 }
 #header{
 	/*background-color: grey;*/
+}
+.ada {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  top: -10px;
+ 
 }
