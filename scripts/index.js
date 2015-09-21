@@ -55,7 +55,7 @@ function createNewGame(){
 	}
 
 	for (var i = 0; i < trs.length; i++){
-		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>'
+		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>';
 	}
 
 	//create teams
@@ -82,7 +82,7 @@ function createNewGame(){
 	}
 
 	// push the assasin
-	teams.push(COLOR_BLACK)
+	teams.push(COLOR_BLACK);
 
 	//shuffle teams
 	shuffle(teams);
@@ -158,4 +158,4 @@ document.getElementById('seed').onkeypress = function(e){
       fire();
       return false;
     }
-  }
+}
