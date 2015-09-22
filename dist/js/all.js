@@ -12,6 +12,8 @@ Notes:
 'seedrandom' is also imported from html. it gives deterministic random #s based on a seed set in fire()
 */
 
+/*jshint -W004 */
+
 
 var wordsSelected = [];
 var teams = [];
@@ -166,7 +168,7 @@ document.getElementById('seed').onkeypress = function(e){
       fire();
       return false;
     }
-}
+};
 
 /**
 
@@ -392,12 +394,12 @@ var startdenom = math.pow(width, chunks),
 //
 var impl = math['seed' + rngname] = function(seed, options, callback) {
   var key = [];
-  options = (options == true) ? { entropy: true } : (options || {});
+  options = (options === true) ? { entropy: true } : (options || {});
 
   // Flatten the seed string or build one from local entropy if needed.
   var shortseed = mixkey(flatten(
     options.entropy ? [seed, tostring(pool)] :
-    (seed == null) ? autoseed() : seed, 3), key);
+    (seed === null) ? autoseed() : seed, 3), key);
 
   // Use the seed to initialize an ARC4 generator.
   var arc4 = new ARC4(key);

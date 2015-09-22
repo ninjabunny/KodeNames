@@ -4,6 +4,8 @@ Notes:
 'seedrandom' is also imported from html. it gives deterministic random #s based on a seed set in fire()
 */
 
+/*jshint -W004 */
+
 
 var wordsSelected = [];
 var teams = [];
@@ -158,4 +160,4 @@ document.getElementById('seed').onkeypress = function(e){
       fire();
       return false;
     }
-}
+};
