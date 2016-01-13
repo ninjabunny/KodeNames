@@ -16,7 +16,7 @@ var sessionData = [];
 var COLOR_RED = "#ff0000";
 var COLOR_YELLOW = "#ffff00";
 var COLOR_BLUE = "#00eeee";
-var COLOR_BLACK = "black";
+var COLOR_BLACK = "#808080";
 var COLOR_GREEN = "#009000";
 
 function fire(){
@@ -53,9 +53,9 @@ function createNewGame(){
 		var word = sessionData[randomNumber];
 		removeItem(sessionData, randomNumber);
 		wordsSelected.push(word);
-		trs[i%5] += "<div class=\"word\" id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\"><div>" + word + "</div></div>";
+		trs[i%5] += "<div class=\"word\" id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\"><div><a href=\"#\"><span class=\"ada\"></span>" + word + "</a></div></div>";
 	}
-
+//<a href="#"><span class="ada">Washington stimulates economic growth </span>Read me</a>
 	for (var i = 0; i < trs.length; i++){
 		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>';
 	}
@@ -67,7 +67,7 @@ function createNewGame(){
 	}
 
 	// one extra for one of the teams
-	document.getElementById("first").innerHTML = " starts first.";
+	document.getElementById("first").innerHTML = " starts (9).";
 	if(Math.floor(Math.random() * data.length) % 2 === 0){
 		teams.push(COLOR_RED);
 		document.getElementById("team").style.color = COLOR_RED;
@@ -111,13 +111,7 @@ function clicked(value){
 			
 	} else {
 		//spymaster mode
-		// console.log(COLOR_GREEN + " hi "+document.getElementById(value).style.backgroundColor);
-		// if(!document.getElementById(value).style.backgroundColor === teams[value]){
 			document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
-		// } else {
-		// 	document.getElementById(value).style.backgroundColor = teams[value];
-		// }
-		
 	}
 }
 
