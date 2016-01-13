@@ -65,7 +65,7 @@ function createNewGame(){
 	}
 
 	// one extra for one of the teams
-	document.getElementById("first").innerHTML = " starts first.";
+	document.getElementById("first").innerHTML = " starts (9).";
 	if(Math.floor(Math.random() * data.length) % 2 === 0){
 		teams.push(COLOR_RED);
 		document.getElementById("team").style.color = COLOR_RED;
@@ -109,13 +109,7 @@ function clicked(value){
 			
 	} else {
 		//spymaster mode
-		// console.log(COLOR_GREEN + " hi "+document.getElementById(value).style.backgroundColor);
-		// if(!document.getElementById(value).style.backgroundColor === teams[value]){
 			document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
-		// } else {
-		// 	document.getElementById(value).style.backgroundColor = teams[value];
-		// }
-		
 	}
 }
 
