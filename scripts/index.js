@@ -75,17 +75,17 @@ function createNewGame(){
 		teams.push(COLOR_RED);
 		document.getElementById("team").style.color = COLOR_RED;
 		document.getElementById("team").innerHTML = "RED";
-    redWordsRemaining = 9;
-    blueWordsRemaining = 8;
+		redWordsRemaining = 9;
+		blueWordsRemaining = 8;
 	}else{
 		teams.push(COLOR_BLUE);
 		document.getElementById("team").style.color = COLOR_BLUE;
 		document.getElementById("team").innerHTML = "BLUE";
-    blueWordsRemaining = 9;
-    redWordsRemaining = 8;
+		blueWordsRemaining = 9;
+		redWordsRemaining = 8;
 	}
-
-  repaintWordCounts();
+	
+	repaintWordCounts();
 	
 	// add neturals 
 	for(var i = 0; i < 7; i++){
@@ -101,46 +101,44 @@ function createNewGame(){
 }
 
 function repaintWordCounts() {
-  var s = 'Words remaining: ' +
-    '<span style="color: ' + COLOR_RED + ';">RED</span>: ' +
-    redWordsRemaining +
-    ' <span style="color: ' + COLOR_BLUE + ';">BLUE</span>: ' +
-    blueWordsRemaining;
+	var s = 'Words remaining: ' +
+		'<span style="color: ' + COLOR_RED + ';">RED</span>: ' +
+		redWordsRemaining +
+		' <span style="color: ' + COLOR_BLUE + ';">BLUE</span>: ' +
+		blueWordsRemaining;
 
-  console.log(s);
-  document.getElementById('word-counts').innerHTML = s;
-  console.log(document.getElementById('word-counts'));
+	document.getElementById('word-counts').innerHTML = s;
 }
 
 function clicked(value){
-  var team = teams[value];
+	var team = teams[value];
 
 	if(!spyMasterMode){
 		//guessers mode
 		var word = wordsSelected[value];
 
-		if (document.getElementById("confirm").checked){
-			if (!window.confirm("Are sure you want to select '"+word+"'?")){
-        return;
-      }
-    }
+		if(document.getElementById("confirm").checked){
+			if(!window.confirm("Are sure you want to select '"+word+"'?")){
+				return;
+			}
+		}
 
-    document.getElementById(value).style.backgroundColor = team;
-    if (team === "black"){
-      document.getElementById(value).style.color = "white";
-    }
-	} else {
-    //spymaster mode
-    document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
+		document.getElementById(value).style.backgroundColor = team;
+		if (team === "black"){
+			document.getElementById(value).style.color = "white";
+		}
+	}else{
+		//spymaster mode
+		document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
 	}
 
-  if (team === COLOR_RED) {
-    redWordsRemaining--;
-  } else if (team === COLOR_BLUE) {
-    blueWordsRemaining--;
-  }
+	if (team === COLOR_RED){
+		redWordsRemaining--;
+	}else if (team === COLOR_BLUE){
+		blueWordsRemaining--;
+	}
 
-  repaintWordCounts();
+	repaintWordCounts();
 }
 
 function spyMaster(){
