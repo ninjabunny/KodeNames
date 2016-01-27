@@ -13,6 +13,9 @@ var NUMBER_OF_WORDS = 25;
 var spyMasterMode = false;
 var sessionData = [];
 
+var blueWordsRemaining;
+var redWordsRemaining;
+
 var COLOR_RED = "#ff0000";
 var COLOR_YELLOW = "#ffff00";
 var COLOR_BLUE = "#00eeee";
@@ -67,16 +70,22 @@ function createNewGame(){
 	}
 
 	// one extra for one of the teams
-	document.getElementById("first").innerHTML = " starts (9).";
+	document.getElementById("first").innerHTML = " starts.";
 	if(Math.floor(Math.random() * data.length) % 2 === 0){
 		teams.push(COLOR_RED);
 		document.getElementById("team").style.color = COLOR_RED;
 		document.getElementById("team").innerHTML = "RED";
+    redWordsRemaining = 9;
+    blueWordsRemaining = 8;
 	}else{
 		teams.push(COLOR_BLUE);
 		document.getElementById("team").style.color = COLOR_BLUE;
 		document.getElementById("team").innerHTML = "BLUE";
+    blueWordsRemaining = 9;
+    redWordsRemaining = 8;
 	}
+
+  repaintWordCounts();
 	
 	// add neturals 
 	for(var i = 0; i < 7; i++){
@@ -91,28 +100,47 @@ function createNewGame(){
 
 }
 
+function repaintWordCounts() {
+  var s = 'Words remaining: ' +
+    '<span style="color: ' + COLOR_RED + ';">RED</span>: ' +
+    redWordsRemaining +
+    ' <span style="color: ' + COLOR_BLUE + ';">BLUE</span>: ' +
+    blueWordsRemaining;
+
+  console.log(s);
+  document.getElementById('word-counts').innerHTML = s;
+  console.log(document.getElementById('word-counts'));
+}
+
 function clicked(value){
+  var team = teams[value];
+
 	if(!spyMasterMode){
 		//guessers mode
 		var word = wordsSelected[value];
-		if(document.getElementById("confirm").checked){
-			if (window.confirm("Are sure you want to select '"+word+"'?")){
-				document.getElementById(value).style.backgroundColor = teams[value];
-				if (teams[value] == "black"){
-					document.getElementById(value).style.color = "white";
-				}
-			}
-		} else {
-			document.getElementById(value).style.backgroundColor = teams[value];
-			if (teams[value] == "black"){
-				document.getElementById(value).style.color = "white";
-			}
-		}
-			
+
+		if (document.getElementById("confirm").checked){
+			if (!window.confirm("Are sure you want to select '"+word+"'?")){
+        return;
+      }
+    }
+
+    document.getElementById(value).style.backgroundColor = team;
+    if (team === "black"){
+      document.getElementById(value).style.color = "white";
+    }
 	} else {
-		//spymaster mode
-			document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
+    //spymaster mode
+    document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
 	}
+
+  if (team === COLOR_RED) {
+    redWordsRemaining--;
+  } else if (team === COLOR_BLUE) {
+    blueWordsRemaining--;
+  }
+
+  repaintWordCounts();
 }
 
 function spyMaster(){
