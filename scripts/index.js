@@ -4,12 +4,17 @@ Notes:
 'seedrandom' is also imported from html. it gives deterministic random #s based on a seed set in fire()
 */
 
+/*jshint -W004 */
+
 
 var wordsSelected = [];
 var teams = [];
 var NUMBER_OF_WORDS = 25;
 var spyMasterMode = false;
 var sessionData = [];
+
+var blueWordsRemaining;
+var redWordsRemaining;
 
 var COLOR_RED = "#ff0000";
 var COLOR_YELLOW = "#ffff00";
@@ -55,7 +60,7 @@ function createNewGame(){
 	}
 //<a href="#"><span class="ada">Washington stimulates economic growth </span>Read me</a>
 	for (var i = 0; i < trs.length; i++){
-		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>'
+		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>';
 	}
 
 	//create teams
@@ -65,16 +70,22 @@ function createNewGame(){
 	}
 
 	// one extra for one of the teams
-	document.getElementById("first").innerHTML = " starts (9).";
+	document.getElementById("first").innerHTML = " starts.";
 	if(Math.floor(Math.random() * data.length) % 2 === 0){
 		teams.push(COLOR_RED);
 		document.getElementById("team").style.color = COLOR_RED;
 		document.getElementById("team").innerHTML = "RED";
+		redWordsRemaining = 9;
+		blueWordsRemaining = 8;
 	}else{
 		teams.push(COLOR_BLUE);
 		document.getElementById("team").style.color = COLOR_BLUE;
 		document.getElementById("team").innerHTML = "BLUE";
+		blueWordsRemaining = 9;
+		redWordsRemaining = 8;
 	}
+	
+	repaintWordCounts();
 	
 	// add neturals 
 	for(var i = 0; i < 7; i++){
@@ -82,35 +93,52 @@ function createNewGame(){
 	}
 
 	// push the assasin
-	teams.push(COLOR_BLACK)
+	teams.push(COLOR_BLACK);
 
 	//shuffle teams
 	shuffle(teams);
 
 }
 
+function repaintWordCounts() {
+	var s = 'Words remaining: ' +
+		'<span style="color: ' + COLOR_RED + ';">RED</span>: ' +
+		redWordsRemaining +
+		' <span style="color: ' + COLOR_BLUE + ';">BLUE</span>: ' +
+		blueWordsRemaining;
+
+	document.getElementById('word-counts').innerHTML = s;
+}
+
 function clicked(value){
+	var team = teams[value];
+
 	if(!spyMasterMode){
 		//guessers mode
 		var word = wordsSelected[value];
+
 		if(document.getElementById("confirm").checked){
-			if (window.confirm("Are sure you want to select '"+word+"'?")){
-				document.getElementById(value).style.backgroundColor = teams[value];
-				if (teams[value] == "black"){
-					document.getElementById(value).style.color = "white";
-				}
-			}
-		} else {
-			document.getElementById(value).style.backgroundColor = teams[value];
-			if (teams[value] == "black"){
-				document.getElementById(value).style.color = "white";
+			if(!window.confirm("Are sure you want to select '"+word+"'?")){
+				return;
 			}
 		}
-			
-	} else {
+
+		document.getElementById(value).style.backgroundColor = team;
+		if (team === "black"){
+			document.getElementById(value).style.color = "white";
+		}
+	}else{
 		//spymaster mode
-			document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
+		document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
 	}
+
+	if (team === COLOR_RED){
+		redWordsRemaining--;
+	}else if (team === COLOR_BLUE){
+		blueWordsRemaining--;
+	}
+
+	repaintWordCounts();
 }
 
 function spyMaster(){
@@ -152,4 +180,4 @@ document.getElementById('seed').onkeypress = function(e){
       fire();
       return false;
     }
-  }
+};
