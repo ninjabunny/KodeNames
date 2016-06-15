@@ -23,7 +23,12 @@ function fire(){
 	Math.seedrandom(seed);
 
 	//reset state to pristine state
-	sessionData = data.slice(0);
+	if(document.getElementById("movie").checked) {
+		sessionData = movieData.slice(0);
+	}else {
+		sessionData = data.slice(0);	
+	}
+	
 	wordsSelected = [];
 	teams = [];
 	spyMasterMode = false;
