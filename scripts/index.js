@@ -10,6 +10,7 @@ var teams = [];
 var NUMBER_OF_WORDS = 25;
 var spyMasterMode = false;
 var sessionData = [];
+var customData = [];
 
 var COLOR_RED = "#ff0000";
 var COLOR_YELLOW = "#ffff00";
@@ -17,19 +18,15 @@ var COLOR_BLUE = "#00eeee";
 var COLOR_BLACK = "#808080";
 var COLOR_GREEN = "#009000";
 
+//init
+$( "#seed" ).keyup(function() {
+  fire();
+});
+
 function fire() {
 	//get seed and set the seed for randomizer
 	var seed = document.getElementById("seed").value;
 	Math.seedrandom(seed.toLowerCase());
-
-	// //reset state to pristine state
-	// if($('#gameMode').)
-
-	// if(document.getElementById("movie").checked) {
-	// 	sessionData = movieData.slice(0);
-	// }else {
-	// 	sessionData = data.slice(0);	
-	// }
 	
 	var option = $('#gameMode :selected').val();
 	switch (option) {
@@ -40,7 +37,11 @@ function fire() {
 			sessionData = movieData.slice(0);
 			break;
 		case 'custom':
-			var person = prompt("Please enter your name", "Harry Potter");
+			if(customData.length === 0){
+				var customWordList = prompt("Please enter custom word list. The list will be saved until your refresh your browser. (The words MUST be delimanted by spaces). eg: cat dog mouse", "Enter words here");
+				customData = customWordList.split(' ');
+			}
+			sessionData = customData.slice(0);	
 			break;
 		default:
 			sessionData = defaultData.slice(0);
