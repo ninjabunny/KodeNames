@@ -112,3 +112,10 @@ button, input, span#first {
 	border-left: #00eeee;
 	border-left-style: solid;
 }
+
+#redScore{
+	color: #ff0000;
+}
+#blueScore{
+	color: #00eeee;
+}

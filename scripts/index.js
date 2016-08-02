@@ -53,6 +53,7 @@ function fire() {
 	document.getElementById("board").innerHTML = "";
 
 	//fire new board
+	updateScore();
 	createNewGame();
 }
 
@@ -90,13 +91,13 @@ function createNewGame() {
 	// one extra for one of the teams
 	if (Math.floor(Math.random() * data.length) % 2 === 0) {
 		teams.push(COLOR_RED);
-		document.getElementById("team").style.color = COLOR_RED;
+		// document.getElementById("team").style.color = COLOR_RED;
 		// document.getElementById("team").innerHTML = "RED";
 		$('#board').addClass('redStarts').removeClass('blueStarts');
 
 	} else {
 		teams.push(COLOR_BLUE);
-		document.getElementById("team").style.color = COLOR_BLUE;
+		// document.getElementById("team").style.color = COLOR_BLUE;
 		// document.getElementById("team").innerHTML = "BLUE";
 		$('#board').addClass('blueStarts').removeClass('redStarts');
 	}
@@ -131,11 +132,35 @@ function clicked(value) {
 				document.getElementById(value).style.color = "white";
 			}
 		}
-
+		//update score
+		updateScore();
 	} else {
 		//spymaster mode
 		document.getElementById(value).style.backgroundColor = COLOR_GREEN;
 	}
+}
+
+function updateScore(){
+	var blueScore = 9;
+	var redScore = 9;
+	$('div.word').each(function(){
+		var color = $(this).css('background-color');
+		if (color === 'rgb(0, 238, 238)'){
+			blueScore--;
+		}
+		if (color === 'rgb(255, 0, 0)'){
+			redScore--;
+		}
+	});
+	//subtract 1 for non-starting team
+	if($('.redStarts') === 1){
+		redScore--;
+	} else {
+		blueScore--;
+	}
+
+	$('#redScore').text(redScore);
+	$('#blueScore').text(blueScore);
 }
 
 function spyMaster() {
