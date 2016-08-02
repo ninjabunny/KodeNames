@@ -17,18 +17,35 @@ var COLOR_BLUE = "#00eeee";
 var COLOR_BLACK = "#808080";
 var COLOR_GREEN = "#009000";
 
-function fire(){
+function fire() {
 	//get seed and set the seed for randomizer
 	var seed = document.getElementById("seed").value;
-	Math.seedrandom(seed);
+	Math.seedrandom(seed.toLowerCase());
 
-	//reset state to pristine state
-	if(document.getElementById("movie").checked) {
-		sessionData = movieData.slice(0);
-	}else {
-		sessionData = data.slice(0);	
-	}
+	// //reset state to pristine state
+	// if($('#gameMode').)
+
+	// if(document.getElementById("movie").checked) {
+	// 	sessionData = movieData.slice(0);
+	// }else {
+	// 	sessionData = data.slice(0);	
+	// }
 	
+	var option = $('#gameMode :selected').val();
+	switch (option) {
+		case '2knouns':
+			sessionData = data.slice(0);
+			break;
+		case 'movies':
+			sessionData = movieData.slice(0);
+			break;
+		case 'custom':
+			var person = prompt("Please enter your name", "Harry Potter");
+			break;
+		default:
+			sessionData = defaultData.slice(0);
+	}
+
 	wordsSelected = [];
 	teams = [];
 	spyMasterMode = false;
@@ -39,50 +56,50 @@ function fire(){
 }
 
 //not used, but probably useful at some point
-function removeItem(array, index){
+function removeItem(array, index) {
 	if (index > -1) {
 		// console.log("index: " + index + ", word: " + array[index] + " removed.");
-	    array.splice(index, 1);
+		array.splice(index, 1);
 	}
 }
 
-function createNewGame(){	
+function createNewGame() {
 	var trs = [];
-	for(var i = 0; i < NUMBER_OF_WORDS; i++){
-		if (!trs[i%5]){
-			trs[i%5] = "";
+	for (var i = 0; i < NUMBER_OF_WORDS; i++) {
+		if (!trs[i % 5]) {
+			trs[i % 5] = "";
 		}
 		var randomNumber = Math.floor(Math.random() * sessionData.length);
 		var word = sessionData[randomNumber];
 		removeItem(sessionData, randomNumber);
 		wordsSelected.push(word);
-		trs[i%5] += "<div class=\"word\" id=\'"+ i +"\' onclick=\"clicked(\'" + i + "\')\"><div><a href=\"#\"><span class=\"ada\"></span>" + word + "</a></div></div>";
+		trs[i % 5] += "<div class=\"word\" id=\'" + i + "\' onclick=\"clicked(\'" + i + "\')\"><div><a href=\"#\"><span class=\"ada\"></span>" + word + "</a></div></div>";
 	}
-//<a href="#"><span class="ada">Washington stimulates economic growth </span>Read me</a>
-	for (var i = 0; i < trs.length; i++){
-		document.getElementById("board").innerHTML += '<div class="row">'+trs[i]+'</div>'
+	//<a href="#"><span class="ada">Washington stimulates economic growth </span>Read me</a>
+	for (var i = 0; i < trs.length; i++) {
+		document.getElementById("board").innerHTML += '<div class="row">' + trs[i] + '</div>'
 	}
 
 	//create teams
-	for(var i = 0; i < 8; i++){
+	for (var i = 0; i < 8; i++) {
 		teams.push(COLOR_RED);
 		teams.push(COLOR_BLUE);
 	}
 
 	// one extra for one of the teams
 	document.getElementById("first").innerHTML = " starts (9).";
-	if(Math.floor(Math.random() * data.length) % 2 === 0){
+	if (Math.floor(Math.random() * data.length) % 2 === 0) {
 		teams.push(COLOR_RED);
 		document.getElementById("team").style.color = COLOR_RED;
 		document.getElementById("team").innerHTML = "RED";
-	}else{
+	} else {
 		teams.push(COLOR_BLUE);
 		document.getElementById("team").style.color = COLOR_BLUE;
 		document.getElementById("team").innerHTML = "BLUE";
 	}
-	
+
 	// add neturals 
-	for(var i = 0; i < 7; i++){
+	for (var i = 0; i < 7; i++) {
 		teams.push(COLOR_YELLOW);
 	}
 
@@ -94,67 +111,68 @@ function createNewGame(){
 
 }
 
-function clicked(value){
-	if(!spyMasterMode){
+function clicked(value) {
+	if (!spyMasterMode) {
 		//guessers mode
 		var word = wordsSelected[value];
-		if(document.getElementById("confirm").checked){
-			if (window.confirm("Are sure you want to select '"+word+"'?")){
+		if (document.getElementById("confirm").checked) {
+			if (window.confirm("Are sure you want to select '" + word + "'?")) {
 				document.getElementById(value).style.backgroundColor = teams[value];
-				if (teams[value] == "black"){
+				if (teams[value] == "black") {
 					document.getElementById(value).style.color = "white";
 				}
 			}
 		} else {
 			document.getElementById(value).style.backgroundColor = teams[value];
-			if (teams[value] == "black"){
+			if (teams[value] == "black") {
 				document.getElementById(value).style.color = "white";
 			}
 		}
-			
+
 	} else {
 		//spymaster mode
-			document.getElementById(value).style.backgroundColor = COLOR_GREEN;	
+		document.getElementById(value).style.backgroundColor = COLOR_GREEN;
 	}
 }
 
-function spyMaster(){
+function spyMaster() {
 	//TODO: randomize or organize tiles for easier comparing
 	spyMasterMode = true;
-	for(var i = 0; i < NUMBER_OF_WORDS; i++){
+	for (var i = 0; i < NUMBER_OF_WORDS; i++) {
 		document.getElementById(i).style.backgroundColor = teams[i];
-		if (teams[i] == "black"){
+		if (teams[i] == "black") {
 			document.getElementById(i).style.color = "white";
 		}
 	}
 }
 
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex ;
+	var currentIndex = array.length,
+		temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
 
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
 
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
 
-  return array;
+	return array;
 }
 
 //enable pressing 'Enter' on seed field
-document.getElementById('seed').onkeypress = function(e){
-    if (!e) e = window.event;
-    var keyCode = e.keyCode || e.which;
-    if (keyCode == '13'){
-      // Enter pressed
-      fire();
-      return false;
-    }
-  }
+document.getElementById('seed').onkeypress = function(e) {
+	if (!e) e = window.event;
+	var keyCode = e.keyCode || e.which;
+	if (keyCode == '13') {
+		// Enter pressed
+		fire();
+		return false;
+	}
+}
