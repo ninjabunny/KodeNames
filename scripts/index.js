@@ -27,7 +27,7 @@ function fire() {
 	//get seed and set the seed for randomizer
 	var seed = document.getElementById("seed").value;
 	Math.seedrandom(seed.toLowerCase());
-	
+
 	var option = $('#gameMode :selected').val();
 	switch (option) {
 		case '2knouns':
@@ -88,15 +88,17 @@ function createNewGame() {
 	}
 
 	// one extra for one of the teams
-	document.getElementById("first").innerHTML = " starts (9).";
 	if (Math.floor(Math.random() * data.length) % 2 === 0) {
 		teams.push(COLOR_RED);
 		document.getElementById("team").style.color = COLOR_RED;
-		document.getElementById("team").innerHTML = "RED";
+		// document.getElementById("team").innerHTML = "RED";
+		$('#board').addClass('redStarts').removeClass('blueStarts');
+
 	} else {
 		teams.push(COLOR_BLUE);
 		document.getElementById("team").style.color = COLOR_BLUE;
-		document.getElementById("team").innerHTML = "BLUE";
+		// document.getElementById("team").innerHTML = "BLUE";
+		$('#board').addClass('blueStarts').removeClass('redStarts');
 	}
 
 	// add neturals 

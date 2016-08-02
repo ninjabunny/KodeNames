@@ -103,3 +103,12 @@ button, input, span#first {
   top: -10px;
  
 }
+
+.redStarts{
+	border-left: #ff0000;
+	border-left-style: solid;
+}
+.blueStarts{
+	border-left: #00eeee;
+	border-left-style: solid;
+}
