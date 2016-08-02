@@ -115,7 +115,9 @@ button, input, span#first {
 
 #redScore{
 	color: #ff0000;
+	font-size: 23px;
 }
 #blueScore{
 	color: #00eeee;
+	font-size: 23px;
 }
