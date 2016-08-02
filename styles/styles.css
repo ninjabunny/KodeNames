@@ -16,6 +16,7 @@ button, input, span#first {
 }
 
 #board {
+	width: 100%;
 	position : absolute;
 	bottom : 5px;
 	left : 2%;
@@ -78,7 +79,7 @@ button, input, span#first {
 	float : right;
 }
 
-#movie {
+#gameMode {
 	float : right;
 }
 #movieCheck {

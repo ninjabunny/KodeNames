@@ -21,12 +21,17 @@
         <button id="spymaster" onclick="spyMaster()">I am SpyMaster</button>
         <span id="confirmText">confirm popup?</span>
         <input type="checkbox" id="confirm" checked>
-        <span id="movieCheck">Movies</span>
-        <input type="checkbox" id="movie">
+        <select id='gameMode'>
+          <option value="default">Default</option>
+          <option value="2knouns">2K nouns</option>
+          <option value="movies">Top 200 Movies</option>
+          <option value="custom">Custom</option>
+        </select>
         <span id="google_translate_element"></span>
       </span>
     </div>
   </div>
+  <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
   <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, gaTrack: true, gaId: 'UA-48676831-6'}, 'google_translate_element');
