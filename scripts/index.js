@@ -113,6 +113,7 @@ function createNewGame() {
 	//shuffle teams
 	shuffle(teams);
 
+	updateScore();
 }
 
 function clicked(value) {
@@ -153,10 +154,10 @@ function updateScore(){
 		}
 	});
 	//subtract 1 for non-starting team
-	if($('.redStarts') === 1){
-		redScore--;
-	} else {
+	if($('.redStarts').length === 1){
 		blueScore--;
+	} else {
+		redScore--;
 	}
 
 	$('#redScore').text(redScore);
