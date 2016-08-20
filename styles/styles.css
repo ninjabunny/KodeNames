@@ -92,8 +92,9 @@ button, input, span#first {
 	margin-right: 5px;	
 }
 
-#confirmText {
-		
+#reset {
+	margin-left: 5px;
+	margin-right: 5px;	
 }
 #google_translate_element {
 	margin-left: 5px;

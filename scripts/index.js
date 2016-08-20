@@ -21,10 +21,15 @@ var COLOR_GREEN = "#009000";
 //init
 $( "#seed" ).keyup(function() {
   fire();
-}).click(function(){
-	fire();	
 });
 
+$("#gameMode").change(function(){
+	fire();
+});
+
+
+$( "#seed" ).val(Math.floor(Math.random() * 1000));
+fire();
 function fire() {
 	//get seed and set the seed for randomizer
 	var seed = document.getElementById("seed").value;
