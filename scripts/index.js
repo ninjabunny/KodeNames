@@ -21,6 +21,8 @@ var COLOR_GREEN = "#009000";
 //init
 $( "#seed" ).keyup(function() {
   fire();
+}).click(function(){
+	fire();	
 });
 
 function fire() {

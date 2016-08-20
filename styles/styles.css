@@ -69,31 +69,35 @@ button, input, span#first {
 
 }
 
-
+#header a {
+	font-size:20px;
+	margin-left: 5px;
+	margin-right: 8px;
+	font-weight: bold;
+}
+#header {
+	display: flex;
+	align-items: center;
+}
 #spymaster {
-	float : right;
-	margin-left: 10px;
+	margin-left: 5px;
 }
 
-#confirm {
-	float : right;
+#seed {
+	margin-right: 5px;	
 }
 
 #gameMode {
-	float : right;
-}
-#movieCheck {
-	float : right;	
+	margin-left: 5px;
+	margin-right: 5px;	
 }
 
 #confirmText {
-	float : right;	
+		
 }
 #google_translate_element {
-	float: right;
-}
-#header{
-	/*background-color: grey;*/
+	margin-left: 5px;
+	margin-right: 5px;	
 }
 .ada {
   height: 1px;
@@ -116,8 +120,12 @@ button, input, span#first {
 #redScore{
 	color: #ff0000;
 	font-size: 23px;
+	flex-grow: 1;
+	text-align: center;
 }
 #blueScore{
+	text-align: center;
 	color: #00eeee;
 	font-size: 23px;
+	flex-grow: 1;
 }

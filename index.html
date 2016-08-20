@@ -5,7 +5,7 @@
   <meta charset="utf-8">
 
   <title>KodeNames</title>
-  <meta name="description" content="The HTML5 Herald">
+  <meta name="description" content="Kodenames">
   <meta name="author" content="SitePoint">
   <link rel="stylesheet" href="styles/styles.css?v=1.0">
 </head>
@@ -13,33 +13,30 @@
 <body>
   <div>
     <div id='header'>
-      <input type="text" id="seed" placeholder="seed" size="8" autofocus>
-      <button onclick="fire()">Play Game</button>
+      <a href="https://github.com/ninjabunny/KodeNames/issues" target='_blank'>Kodenames</a>
+      <button onclick="fire()">Play</button>
       <span id="redScore"></span>
-      <span id="blueScore"></span>  
-      <span>
-        <button id="spymaster" onclick="spyMaster()">I am SpyMaster</button>
-        <span id="confirmText">confirm popup?</span>
-        <input type="checkbox" id="confirm">
-        <select id='gameMode'>
-          <option value="default">Default</option>
-          <option value="2knouns">2K Nouns</option>
-          <option value="movies">Top 200 Movies</option>
-          <option value="custom">Custom Words</option>
-        </select>
-        <span id="google_translate_element"></span>
-      </span>
+      <span id="blueScore"></span>
+      <input type="text" id="seed" placeholder="seed" size="8" autofocus>
+      <span id="confirmText">confirm?</span>
+      <input type="checkbox" id="confirm">
+      <select id='gameMode'>
+        <option value="default">Default</option>
+        <option value="2knouns">2K Nouns</option>
+        <option value="movies">Top 200 Movies</option>
+        <option value="custom">Custom Words</option>
+      </select>
+      <span id="google_translate_element"></span>
+      <button id="spymaster" onclick="spyMaster()">SpyMaster</button>
     </div>
   </div>
+  <div id="board"></div>
   <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
   <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, gaTrack: true, gaId: 'UA-48676831-6'}, 'google_translate_element');
   }
   </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  
-  <div id="board"></div>
-
   <script src="scripts/data.js"></script>
   <script src="scripts/seedrandom.js"></script>
   <script src="scripts/index.js"></script>
