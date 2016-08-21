@@ -19,17 +19,18 @@ var COLOR_BLACK = "#808080";
 var COLOR_GREEN = "#009000";
 
 //init
-$( "#seed" ).keyup(function() {
-  fire();
+$("#seed").keyup(function() {
+	fire();
 });
 
-$("#gameMode").change(function(){
+$("#gameMode").change(function() {
 	fire();
 });
 
 
-$( "#seed" ).val(Math.floor(Math.random() * 1000));
+$("#seed").val(Math.floor(Math.random() * 1000));
 fire();
+
 function fire() {
 	//get seed and set the seed for randomizer
 	var seed = document.getElementById("seed").value;
@@ -44,11 +45,11 @@ function fire() {
 			sessionData = movieData.slice(0);
 			break;
 		case 'custom':
-			if(customData.length === 0){
+			if (customData.length === 0) {
 				var customWordList = prompt("Please enter custom word list. The list will be saved until your refresh your browser. (The words MUST be delimanted by spaces). eg: cat dog mouse", "Enter words here");
 				customData = customWordList.split(' ');
 			}
-			sessionData = customData.slice(0);	
+			sessionData = customData.slice(0);
 			break;
 		default:
 			sessionData = defaultData.slice(0);
@@ -124,7 +125,10 @@ function createNewGame() {
 }
 
 function clicked(value) {
-	if (!spyMasterMode) {
+	if (spyMasterMode) {
+		//spymaster mode
+		document.getElementById(value).style.backgroundColor = COLOR_GREEN;
+	} else {
 		//guessers mode
 		var word = wordsSelected[value];
 		if (document.getElementById("confirm").checked) {
@@ -140,35 +144,50 @@ function clicked(value) {
 				document.getElementById(value).style.color = "white";
 			}
 		}
-		//update score
-		updateScore();
-	} else {
-		//spymaster mode
-		document.getElementById(value).style.backgroundColor = COLOR_GREEN;
 	}
+	updateScore();
 }
 
-function updateScore(){
+function updateScore() {
 	var blueScore = 9;
 	var redScore = 9;
-	$('div.word').each(function(){
-		var color = $(this).css('background-color');
-		if (color === 'rgb(0, 238, 238)'){
+	if (spyMasterMode) {
+		blueScore = 0;
+		redScore = 0;
+		$('div.word').each(function() {
+			var color = $(this).css('background-color');
+			if (color === 'rgb(0, 238, 238)') {
+				blueScore++;
+			}
+			if (color === 'rgb(255, 0, 0)') {
+				redScore++;
+			}
+		});
+	} else {
+		$('div.word').each(function() {
+			var color = $(this).css('background-color');
+			if (color === 'rgb(0, 238, 238)') {
+				blueScore--;
+			}
+			if (color === 'rgb(255, 0, 0)') {
+				redScore--;
+			}
+		});
+
+		if ($('.redStarts').length === 1) {
 			blueScore--;
-		}
-		if (color === 'rgb(255, 0, 0)'){
+		} else {
 			redScore--;
 		}
-	});
-	//subtract 1 for non-starting team
-	if($('.redStarts').length === 1){
-		blueScore--;
-	} else {
-		redScore--;
 	}
-
 	$('#redScore').text(redScore);
 	$('#blueScore').text(blueScore);
+	if(redScore === 0){
+		$('#redScore').text('Winner!');
+	}
+	if(blueScore === 0){
+		$('#blueScore').text('Winner!');
+	}
 }
 
 function spyMaster() {
