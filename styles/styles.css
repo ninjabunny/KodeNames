@@ -1,6 +1,6 @@
 a:link {color: black;}      /* unvisited link */
-a:visited {color: black;}   /* visited link */
-a:hover {color: black;}     /* mouse over link */
+a:visited {color: black}   /* visited link */
+.word:hover {color: black; font-size: 1.5em; background: lightgrey;}     /* mouse over link */
 a:active {color: black;}    /* selected link */
 
 html {
@@ -8,7 +8,7 @@ html {
 }
 
 #board {
-	font-size : 1.5em;
+	font-size : 1.4em;
 }
 
 button, input, span#first {
