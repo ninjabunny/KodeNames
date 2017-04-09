@@ -5,6 +5,7 @@ A popular word game.
 * ADA Compliant
 * Word sets
   * Original
+  * Spanish Word Set
   * 1000 most common nouns
   * Top 250 Movies
   * Custom word set (create your own!)
