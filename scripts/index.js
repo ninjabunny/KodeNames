@@ -38,6 +38,9 @@ function fire() {
 
 	var option = $('#gameMode :selected').val();
 	switch (option) {
+		case 'spanish':
+			sessionData = spanishData.slice(0);
+			break;
 		case '2knouns':
 			sessionData = data.slice(0);
 			break;
