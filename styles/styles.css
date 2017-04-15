@@ -28,6 +28,10 @@ button, input, span#first {
 	height : 20%;
 }
 
+#board div.row_pic {
+	height : 25%;
+}
+
 #board div.word {
 	position : relative;
 	text-align : center;
@@ -40,7 +44,6 @@ button, input, span#first {
 	height : 99%;
 	display : inline-block;
 	line-height : 99%;
-
 }
 
 #board div.word div {
@@ -130,3 +133,9 @@ button, input, span#first {
 	font-size: 23px;
 	flex-grow: 1;
 }
+    img {
+      border: solid transparent;
+    }
+
+tint { display:inline-block; opacity:0.8; }
+.tint img { opacity:0.8; }
