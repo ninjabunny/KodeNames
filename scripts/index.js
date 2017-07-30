@@ -104,7 +104,7 @@ function createNewGame() {
 		teams.push(COLOR_RED);
 		// document.getElementById("team").style.color = COLOR_RED;
 		// document.getElementById("team").innerHTML = "RED";
-		$('#score-container').addClass('redStarts').removeClass('blueStarts');
+		$('#board').addClass('redStarts').removeClass('blueStarts');
 
 	} else {
 		teams.push(COLOR_BLUE);
