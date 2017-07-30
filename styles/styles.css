@@ -134,12 +134,12 @@ a {
   top: -10px;
 }
 
-// .redStarts{
+// .redTurn {
 // 	border-left: #FF5252;
 // 	border-left-style: solid;
 // }
 
-// .blueStarts{
+// .blueTurn {
 // 	border-left: #448AFF;
 // 	border-left-style: solid;
 // }
@@ -148,11 +148,11 @@ a {
 	font-weight: bold;
 }
 
-.blueStarts #redScore {
+.blueTurn #redScore {
 	border-color: white;
 }
 
-.redStarts #blueScore {
+.redTurn #blueScore {
 	border-color: white;
 }
 
