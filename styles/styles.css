@@ -11,6 +11,26 @@ body {
 	color: #444444;
 }
 
+.red-team { 
+  background-color: red;
+}
+
+.blue-team {
+  background-color: blue;
+}
+
+.neutral {
+  background-color: yellow;
+}
+
+.bomb {
+  background-color: #EEEEEE;
+}
+
+.guessed {
+  background-color: green;
+}
+
 button, select, span#first, #confirmText {
 	outline: 0;
 	border: 0;
@@ -134,12 +154,12 @@ a {
   top: -10px;
 }
 
-// .redTurn {
+// .redStart {
 // 	border-left: #FF5252;
 // 	border-left-style: solid;
 // }
 
-// .blueTurn {
+// .blueStart {
 // 	border-left: #448AFF;
 // 	border-left-style: solid;
 // }
@@ -148,11 +168,11 @@ a {
 	font-weight: bold;
 }
 
-.blueTurn #redScore {
+.blueStart #redScore {
 	border-color: white;
 }
 
-.redTurn #blueScore {
+.redStart #blueScore {
 	border-color: white;
 }
 

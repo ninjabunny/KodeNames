@@ -12,6 +12,8 @@ var spyMasterMode = false;
 var sessionData = [];
 var customData = [];
 
+// these are the names of classes that will be applied to cells
+// edit these styles in stlyes/styles.css
 var RED_TEAM = "red-team";
 var BLUE_TEAM = "blue-team";
 var NEUTRAL = "neutral";
@@ -104,12 +106,12 @@ function createNewGame() {
 	if (Math.floor(Math.random() * data.length) % 2 === 0) {
 		cells.push(RED_TEAM);
 		startTeam = RED_TEAM
-		$('#board').addClass('redTurn').removeClass('blueTurn');
+		$('#score-container').addClass('redStart').removeClass('blueStart');
 
 	} else {
 		cells.push(BLUE_TEAM);
 		startTeam = BLUE_TEAM
-		$('#board').addClass('blueTurn').removeClass('redTurn');
+		$('#score-container').addClass('blueStart').removeClass('redStart');
 	}
 
 	// add neutrals 
