@@ -6,17 +6,20 @@ Notes:
 
 
 var wordsSelected = [];
-var teams = [];
+var cells = [];
 var NUMBER_OF_WORDS = 25;
 var spyMasterMode = false;
 var sessionData = [];
 var customData = [];
 
-var COLOR_RED = "#ff0000";
-var COLOR_YELLOW = "#ffff00";
-var COLOR_BLUE = "#00eeee";
-var COLOR_BLACK = "#808080";
-var COLOR_GREEN = "#009000";
+// these are the names of classes that will be applied to cells
+// edit these styles in stlyes/styles.css
+var RED_TEAM = "red-team";
+var BLUE_TEAM = "blue-team";
+var NEUTRAL = "neutral";
+var BOMB = "bomb";
+var GUESSED = "guessed";
+var startTeam;
 
 //init
 $("#seed").keyup(function() {
@@ -59,7 +62,7 @@ function fire() {
 	}
 
 	wordsSelected = [];
-	teams = [];
+	cells = [];
 	spyMasterMode = false;
 	document.getElementById("board").innerHTML = "";
 
@@ -93,36 +96,34 @@ function createNewGame() {
 		document.getElementById("board").innerHTML += '<div class="row">' + trs[i] + '</div>'
 	}
 
-	//create teams
+	// create array of word cells
 	for (var i = 0; i < 8; i++) {
-		teams.push(COLOR_RED);
-		teams.push(COLOR_BLUE);
+		cells.push(RED_TEAM);
+		cells.push(BLUE_TEAM);
 	}
 
-	// one extra for one of the teams
+	// one team gets an extra cell
 	if (Math.floor(Math.random() * data.length) % 2 === 0) {
-		teams.push(COLOR_RED);
-		// document.getElementById("team").style.color = COLOR_RED;
-		// document.getElementById("team").innerHTML = "RED";
-		$('#board').addClass('redStarts').removeClass('blueStarts');
+		cells.push(RED_TEAM);
+		startTeam = RED_TEAM
+		$('#score-container').addClass('redStart').removeClass('blueStart');
 
 	} else {
-		teams.push(COLOR_BLUE);
-		// document.getElementById("team").style.color = COLOR_BLUE;
-		// document.getElementById("team").innerHTML = "BLUE";
-		$('#board').addClass('blueStarts').removeClass('redStarts');
+		cells.push(BLUE_TEAM);
+		startTeam = BLUE_TEAM
+		$('#score-container').addClass('blueStart').removeClass('redStart');
 	}
 
-	// add neturals 
+	// add neutrals 
 	for (var i = 0; i < 7; i++) {
-		teams.push(COLOR_YELLOW);
+		cells.push(NEUTRAL);
 	}
 
-	// push the assasin
-	teams.push(COLOR_BLACK)
+	// push the bomb
+	cells.push(BOMB)
 
-	//shuffle teams
-	shuffle(teams);
+	//shuffle cells
+	shuffle(cells);
 
 	updateScore();
 }
@@ -130,22 +131,17 @@ function createNewGame() {
 function clicked(value) {
 	if (spyMasterMode) {
 		//spymaster mode
-		document.getElementById(value).style.backgroundColor = COLOR_GREEN;
+		$("#" + value).addClass(GUESSED);
 	} else {
 		//guessers mode
 		var word = wordsSelected[value];
 		if (document.getElementById("confirm").checked) {
 			if (window.confirm("Are sure you want to select '" + word + "'?")) {
-				document.getElementById(value).style.backgroundColor = teams[value];
-				if (teams[value] == "black") {
-					document.getElementById(value).style.color = "white";
-				}
+				// reveal the cell by adding the class from the corresponding index in the array
+				$("#" + value).addClass(cells[value]);
 			}
 		} else {
-			document.getElementById(value).style.backgroundColor = teams[value];
-			if (teams[value] == "black") {
-				document.getElementById(value).style.color = "white";
-			}
+			$("#" + value).addClass(cells[value]);
 		}
 	}
 	updateScore();
@@ -158,26 +154,24 @@ function updateScore() {
 		blueScore = 0;
 		redScore = 0;
 		$('div.word').each(function() {
-			var color = $(this).css('background-color');
-			if (color === 'rgb(0, 238, 238)') {
+			if ($(this).hasClass(BLUE_TEAM)) {
 				blueScore++;
 			}
-			if (color === 'rgb(255, 0, 0)') {
+			if ($(this).hasClass(RED_TEAM)) {
 				redScore++;
 			}
 		});
 	} else {
 		$('div.word').each(function() {
-			var color = $(this).css('background-color');
-			if (color === 'rgb(0, 238, 238)') {
+			if ($(this).hasClass(BLUE_TEAM)) {
 				blueScore--;
 			}
-			if (color === 'rgb(255, 0, 0)') {
+			if ($(this).hasClass(RED_TEAM)) {
 				redScore--;
 			}
 		});
 
-		if ($('.redStarts').length === 1) {
+		if (startTeam == RED_TEAM) {
 			blueScore--;
 		} else {
 			redScore--;
@@ -197,10 +191,7 @@ function spyMaster() {
 	//TODO: randomize or organize tiles for easier comparing
 	spyMasterMode = true;
 	for (var i = 0; i < NUMBER_OF_WORDS; i++) {
-		document.getElementById(i).style.backgroundColor = teams[i];
-		if (teams[i] == "black") {
-			document.getElementById(i).style.color = "white";
-		}
+		$("#" + i).addClass(cells[i]);
 	}
 }
 

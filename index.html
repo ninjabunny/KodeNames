@@ -1,10 +1,10 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-
-  <title>KodeNames</title>
+  <title>Kodenames</title>
   <meta name="description" content="Kodenames">
   <meta name="author" content="SitePoint">
   <link rel="stylesheet" href="styles/styles.css?v=1.0">
@@ -14,20 +14,26 @@
   <div>
     <div id='header'>
       <a href="https://github.com/ninjabunny/KodeNames" target='_blank'>Kodenames</a>
-      <span id="redScore"></span>
-      <span id="blueScore"></span>
-      <input type="text" id="seed" placeholder="seed" size="8" autofocus>
-      <button id="reset" onclick="fire()">Reset</button>
-      <span id="confirmText">confirm?</span>
-      <input type="checkbox" id="confirm">
-      <select id='gameMode'>
-        <option value="default">Default Word Set</option>
-        <option value="spanish">Spanish Word Set</option>
-        <option value="2knouns">2K Nouns</option>
-        <option value="movies">Top 250 Movies</option>
-        <option value="custom">Custom Words</option>
-      </select>
-      <span id="google_translate_element"></span>
+      <div class="score-container">
+        <span class="score-item" id="redScore"></span>
+        <span class="score-item" id="blueScore"></span>
+      </div>
+      <div class="seed-container">
+        <input type="text" id="seed" placeholder="seed" size="8" autofocus>
+        <select id='gameMode'>
+          <option value="default">Default Word Set</option>
+          <option value="spanish">Spanish Word Set</option>
+          <option value="2knouns">2K Nouns</option>
+          <option value="movies">Top 250 Movies</option>
+          <option value="custom">Custom Words</option>
+        </select>
+        <button id="reset" onclick="fire()">Reset</button>
+      </div>
+      <!-- <span id="google_translate_element"></span> -->
+      <div class="confirm-container">
+        <span id="confirmText">confirm?</span>
+        <input type="checkbox" id="confirm">
+      </div>
       <button id="spymaster" onclick="spyMaster()">SpyMaster</button>
     </div>
   </div>

@@ -1,132 +1,199 @@
-a:link {color: black;}      /* unvisited link */
-a:visited {color: black}   /* visited link */
-.word:hover {color: black; font-size: 1.5em; background: lightgrey;}     /* mouse over link */
-a:active {color: black;}    /* selected link */
 
-html {
-	font-family : "Verdana";
+html, body {
+  height: 100%;
 }
 
-#board {
-	font-size : 1.4em;
+body {
+	font-family : sans-serif;
+	padding: 2rem;
+	margin: 0;
+	font-size: 1.3rem;
+	color: #444444;
 }
 
-button, input, span#first {
-	font-size : 1.3em;	
+.red-team { 
+  background-color: red;
+}
+
+.blue-team {
+  background-color: blue;
+}
+
+.neutral {
+  background-color: yellow;
+}
+
+.bomb {
+  background-color: #EEEEEE;
+}
+
+.guessed {
+  background-color: green;
+}
+
+button, select, span#first, #confirmText {
+	outline: 0;
+	border: 0;
+	font-size: 1rem;
+}
+
+input {
+	padding: .5rem;
+	border-radius: 2px;
+	outline: 0;
+	border : 1px #DDDDDD solid;
+}
+
+select {
+	border: 1px #DDDDDD solid;
+	margin: 0 1rem;
+}
+
+button {
+	background: #DDDDDD;
+	transition: all .2s ease;
+	border-radius: 2px;
+	font-size: 1rem;
+	padding: .5rem 1rem;
+}
+
+button:hover {
+	background: #69F0AE;
+}
+
+input {
+	font-size: 1rem;
+}
+
+input:focus {
+	outline: 0;
+}
+
+a {
+	text-decoration: none;
+	color: #444444;
+}
+
+#header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 2rem;
+	justify-content: space-between;
+}
+
+#header a {
+	font-weight: bold;
+	font-size: 1.3rem;
 }
 
 #board {
 	width: 100%;
-	position : absolute;
-	bottom : 5px;
-	left : 2%;
-	right : 1%;
-	top : 48px;
+	height: 80%;
+	display: flex;
+	flex: 1;
+	border-left: 1px #DDDDDD solid;
+	border-right: 1px #DDDDDD solid;
+	border-radius: 2px;
 }
 
-#board div.row {
-	height : 20%;
+.row {
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+	border : 1px #DDDDDD solid;
 }
 
-#board div.word {
-	position : relative;
+.word {
+	align-self: center;
+	flex: 1;
 	text-align : center;
 	vertical-align : middle;
 	cursor : pointer;
-	border : 2px #DDDDDD solid;
-	border-radius : 5px;
+	border : 1px #DDDDDD solid;
 	font-weight : bold;
-	width : 19%;
-	height : 99%;
-	display : inline-block;
-	line-height : 99%;
-
-}
-
-#board div.word div {
-
-	/* Internet Explorer 10 */
-	display:-ms-flexbox;
-	-ms-flex-pack:center;
-	-ms-flex-align:center;
-
-	/* Firefox */
-	display:-moz-box;
-	-moz-box-pack:center;
-	-moz-box-align:center;
-
-	/* Safari, Opera, and Chrome */
-	display:-webkit-box;
-	-webkit-box-pack:center;
-	-webkit-box-align:center;
-
-	/* W3C */
-	display:box;
-	box-pack:center;
-	box-align:center;
-
-	height : 100%;
-
-}
-
-#header a {
-	font-size:20px;
-	margin-left: 5px;
-	margin-right: 8px;
-	font-weight: bold;
-}
-#header {
+	width : 100%;
+	line-height: 100%;
 	display: flex;
 	align-items: center;
+	transition: all .2s ease;
 }
+
+.word > div {
+	margin: 0 auto;
+	transition: all .2s ease;
+}
+
+.word:hover {
+	background: #DDDDDD;
+}
+
+.word:hover > div {
+	transform: scale(1.2);
+}
+
 #spymaster {
-	margin-left: 5px;
 }
 
 #seed {
-	margin-right: 5px;	
 }
 
 #gameMode {
-	margin-left: 5px;
-	margin-right: 5px;	
 }
 
 #reset {
-	margin-left: 5px;
-	margin-right: 5px;	
 }
+
 #google_translate_element {
-	margin-left: 5px;
-	margin-right: 5px;	
 }
+
 .ada {
   height: 1px;
   width: 1px;
   position: absolute;
   overflow: hidden;
   top: -10px;
- 
 }
 
-.redStarts{
-	border-left: #ff0000;
-	border-left-style: solid;
+// .redStart {
+// 	border-left: #FF5252;
+// 	border-left-style: solid;
+// }
+
+// .blueStart {
+// 	border-left: #448AFF;
+// 	border-left-style: solid;
+// }
+
+.score-container {
+	font-weight: bold;
 }
-.blueStarts{
-	border-left: #00eeee;
-	border-left-style: solid;
+
+.blueStart #redScore {
+	border-color: white;
+}
+
+.redStart #blueScore {
+	border-color: white;
+}
+
+.score-item {
+	border: white 1px solid;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 100%;
+	padding: .25rem;
+	display: block;
+	float: left;
+	text-align: center;
 }
 
 #redScore{
-	color: #ff0000;
-	font-size: 23px;
-	flex-grow: 1;
-	text-align: center;
+	color: #FF5252;
+	margin-right: 2rem;
+	border-color: #FF5252;
 }
+
 #blueScore{
-	text-align: center;
-	color: #00eeee;
-	font-size: 23px;
-	flex-grow: 1;
+	color: #448AFF;
+	border-color: #448AFF;
 }
