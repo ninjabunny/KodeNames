@@ -12,11 +12,11 @@ var spyMasterMode = false;
 var sessionData = [];
 var customData = [];
 
-var COLOR_RED = "#ff0000";
-var COLOR_YELLOW = "#ffff00";
-var COLOR_BLUE = "#00eeee";
-var COLOR_BLACK = "#808080";
-var COLOR_GREEN = "#009000";
+var COLOR_RED = "#FF8A80";
+var COLOR_YELLOW = "#FFFF8D";
+var COLOR_BLUE = "#82B1FF";
+var COLOR_BLACK = "#999999";
+var COLOR_GREEN = "#69F0AE";
 
 //init
 $("#seed").keyup(function() {
@@ -104,7 +104,7 @@ function createNewGame() {
 		teams.push(COLOR_RED);
 		// document.getElementById("team").style.color = COLOR_RED;
 		// document.getElementById("team").innerHTML = "RED";
-		$('#board').addClass('redStarts').removeClass('blueStarts');
+		$('#score-container').addClass('redStarts').removeClass('blueStarts');
 
 	} else {
 		teams.push(COLOR_BLUE);
