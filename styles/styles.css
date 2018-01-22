@@ -28,6 +28,10 @@ button, input, span#first {
 	height : 20%;
 }
 
+#board div.word a {
+	text-decoration: none;
+}
+
 #board div.word {
 	position : relative;
 	text-align : center;
