@@ -9,12 +9,12 @@ A popular word game.
   * 1000 most common nouns
   * Top 250 Movies
   * Custom word set (create your own!)
-* Colorblind friendly Colors
-* Muli-language compaitible with google translate
-* Mobile friendly
+* Colorblind-friendly Colors
+* Muli-language compatible with google translate
+* Mobile-friendly
 
 # Instructions:
-1. distribute website to players
+1. Distribute website to players
 2. Make sure each person uses the same SEED. This will sync your words.
 3. Spymasters click on spymaster button to see key. 
 
