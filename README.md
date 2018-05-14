@@ -1,3 +1,5 @@
+Donate to my Patreon https://www.patreon.com/bunnydoctor
+
 # KodeNames
 A popular word game.
 
