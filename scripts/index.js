@@ -18,6 +18,14 @@ var COLOR_BLUE = "#00eeee";
 var COLOR_BLACK = "#808080";
 var COLOR_GREEN = "#009000";
 
+// In case of begginers playing this game, the color with
+// less number of tiles have extra advantage. The benefit
+// due to starting first gets overshadowed by the quality
+// of the gameplay. So, this setting enables users to
+// choose if they want to equal number of red and blue
+// tiles.
+var RED_EQ_BLUE = false;
+
 //init
 $("#seed").keyup(function() {
 	fire();
@@ -93,28 +101,38 @@ function createNewGame() {
 		document.getElementById("board").innerHTML += '<div class="row">' + trs[i] + '</div>'
 	}
 
+	var color_count = 8;
+	if (RED_EQ_BLUE == true) {
+		color_count = 9;
+	}
 	//create teams
-	for (var i = 0; i < 8; i++) {
+	for (var i = 0; i < color_count; i++) {
 		teams.push(COLOR_RED);
 		teams.push(COLOR_BLUE);
 	}
 
-	// one extra for one of the teams
-	if (Math.floor(Math.random() * data.length) % 2 === 0) {
-		teams.push(COLOR_RED);
-		// document.getElementById("team").style.color = COLOR_RED;
-		// document.getElementById("team").innerHTML = "RED";
-		$('#board').addClass('redStarts').removeClass('blueStarts');
+	if (RED_EQ_BLUE == false) {
+		// one extra for one of the teams
+		if (Math.floor(Math.random() * data.length) % 2 === 0) {
+			teams.push(COLOR_RED);
+			// document.getElementById("team").style.color = COLOR_RED;
+			// document.getElementById("team").innerHTML = "RED";
+			$('#board').addClass('redStarts').removeClass('blueStarts');
 
-	} else {
-		teams.push(COLOR_BLUE);
-		// document.getElementById("team").style.color = COLOR_BLUE;
-		// document.getElementById("team").innerHTML = "BLUE";
-		$('#board').addClass('blueStarts').removeClass('redStarts');
+		} else {
+			teams.push(COLOR_BLUE);
+			// document.getElementById("team").style.color = COLOR_BLUE;
+			// document.getElementById("team").innerHTML = "BLUE";
+			$('#board').addClass('blueStarts').removeClass('redStarts');
+		}
 	}
 
+	yellow_count = 7;
+	if (RED_EQ_BLUE == true) {
+		yellow_count = 6;
+	}
 	// add neturals 
-	for (var i = 0; i < 7; i++) {
+	for (var i = 0; i < yellow_count; i++) {
 		teams.push(COLOR_YELLOW);
 	}
 
@@ -177,10 +195,12 @@ function updateScore() {
 			}
 		});
 
-		if ($('.redStarts').length === 1) {
-			blueScore--;
-		} else {
-			redScore--;
+		if (RED_EQ_BLUE == false) {
+			if ($('.redStarts').length === 1) {
+				blueScore--;
+			} else {
+				redScore--;
+			}
 		}
 	}
 	$('#redScore').text(redScore);
