@@ -35,7 +35,6 @@ $("#gameMode").change(function() {
 	fire();
 });
 
-
 $("#seed").val(Math.floor(Math.random() * 1000));
 fire();
 
@@ -74,6 +73,15 @@ function fire() {
 	//fire new board
 	updateScore();
 	createNewGame();
+}
+
+function changeEqual(cb) {
+	if (cb.checked) {
+		RED_EQ_BLUE = true;
+	} else {
+		RED_EQ_BLUE = false;
+	}
+	fire();
 }
 
 //not used, but probably useful at some point
