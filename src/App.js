@@ -10,9 +10,11 @@ import List from '@material-ui/core/List'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Drawer from '@material-ui/core/Drawer'
+import data from './data'
+import gen from 'random-seed'
+
 const useStyles = makeStyles(theme => ({
   root: {
-    // height: '10px',
     flexGrow: 1,
   },
   menuButton: {
@@ -31,13 +33,31 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function App() {
-  const classes = useStyles()
+  const [seed, setSeed] = useState('')
   const [open, updateOpen] = useState(false)
+  const random = gen.create(seed)
+  const selectedData = new Array(25)
+    .fill(1)
+    .map(_ => data.original[random(data.original.length)])
+  const classes = useStyles()
+
   return (
     <div className='App'>
       <div className='appBar'>
         <AppBar position='static'>
           <Toolbar variant='dense'>
+            {' '}
+            <Typography variant='h6' className={classes.title}>
+              KodeNames
+            </Typography>
+            <InputBase
+              placeholder='Seed...'
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              onChange={e => setSeed(e.target.value)}
+            />
             <IconButton
               edge='start'
               className={classes.menuButton}
@@ -47,26 +67,21 @@ function App() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant='h6' className={classes.title}>
-              KodeNames
-            </Typography>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
           </Toolbar>
         </AppBar>
       </div>
       <table className='table'>
         <tbody>
-          {new Array(5).fill(1).map(_ => (
-            <tr>
-              {new Array(5).fill(1).map(_ => (
-                <td className='card'> hi</td>
-              ))}
+          {new Array(5).fill(1).map((_, i) => (
+            <tr key={`row-${i}`}>
+              {new Array(5).fill(1).map((_, j) => {
+                return (
+                  <Card
+                    key={selectedData[i * 5 + j]}
+                    word={selectedData[i * 5 + j]}
+                  />
+                )
+              })}
             </tr>
           ))}
         </tbody>
@@ -82,7 +97,6 @@ function App() {
         onClick={() => updateOpen(false)}
       >
         <List>list 1</List>
-
         <List>list 2</List>
       </Drawer>
     </div>
@@ -90,3 +104,15 @@ function App() {
 }
 
 export default App
+
+function Card({ word }) {
+  const [selected, setSelected] = useState(false)
+  return (
+    <td
+      className={`card${selected ? ' selected' : ''}`}
+      onClick={_ => setSelected(!selected)}
+    >
+      {word}
+    </td>
+  )
+}

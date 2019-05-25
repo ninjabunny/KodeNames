@@ -8,7 +8,6 @@ body {
 }
 
 .App {
-  text-align: center;
   height: 100%;
   width: 100%;
   display: table;
@@ -20,12 +19,26 @@ body {
 }
 
 .table {
-  background: whitesmoke;
-  border: 1px solid black;
+  border-radius: 5px;
   height: 100%;
   width: 100%;
 }
 
 .card {
-  border: 1px solid black;
+  border: 2px #dddddd solid;
+  border-radius: 5px;
+  width: 20%;
+  height: 20%;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 20px;
+}
+.card:hover {
+  background: lightgrey;
+  font-size: 40px;
+}
+
+.card.selected {
+  background: green;
 }
