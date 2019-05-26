@@ -39,6 +39,19 @@ body {
   font-size: 40px;
 }
 
-.card.selected {
-  background: green;
+.card.red {
+  background: #ff0000;
+}
+
+.card.blue {
+  background: #00eeee;
+}
+
+.card.yellow {
+  background: #ffff00;
+}
+
+.card.black {
+  background: #000000;
+  color: white;
 }
