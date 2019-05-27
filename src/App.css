@@ -55,3 +55,7 @@ body {
   background: #000000;
   color: white;
 }
+
+.card.green {
+  background: #009000;
+}

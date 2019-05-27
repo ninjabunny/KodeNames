@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import InputBase from '@material-ui/core/InputBase'
 import { makeStyles } from '@material-ui/core/styles'
@@ -21,7 +21,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
+    right: '-12px',
   },
   title: {
     flexGrow: 1,
@@ -34,6 +35,14 @@ const useStyles = makeStyles(theme => ({
     width: '400px',
   },
 }))
+
+const avatarStyles = {
+  width: '30px',
+  height: '30px',
+  color: 'black',
+  fontWeight: 'bold',
+  margin: '0 10px',
+}
 
 function App() {
   const [seed, setSeed] = useState('')
@@ -53,14 +62,17 @@ function App() {
     ],
     seed,
   )
+  const generatedDataInitialState = words.map((word, i) => ({
+    word,
+    color: colors[i],
+    selected: false,
+  }))
 
   const [generatedData, updateGeneratedData] = useState(
-    words.map((word, i) => ({
-      word,
-      color: colors[i],
-      selected: false,
-    })),
+    generatedDataInitialState,
   )
+
+  useEffect(_ => updateGeneratedData(generatedDataInitialState), [seed])
   const [redScore, blueScore] = generatedData.reduce(
     (acc, { color, selected }) => {
       if (selected && color === 'red') acc[0]--
@@ -75,33 +87,8 @@ function App() {
       <div className='appBar'>
         <AppBar position='static'>
           <Toolbar variant='dense'>
-            <Typography variant='h6' className={classes.title}>
-              KodeNames
-            </Typography>
-            <Avatar
-              style={{
-                width: '30px',
-                height: '30px',
-                color: 'black',
-                fontWeight: 'bold',
-                backgroundColor: '#00eeee',
-                margin: '0 10px',
-              }}
-            >
-              {blueScore}
-            </Avatar>
-            <Avatar
-              style={{
-                width: '30px',
-                height: '30px',
-                color: 'black',
-                fontWeight: 'bold',
-                backgroundColor: '#ff0000',
-                margin: '0 10px',
-              }}
-            >
-              {redScore}
-            </Avatar>
+            <Typography variant='h6'>KodeNames</Typography>
+            <div className={classes.title} />
             <InputBase
               placeholder='Seed...'
               classes={{
@@ -110,6 +97,12 @@ function App() {
               }}
               onChange={e => setSeed(e.target.value)}
             />
+            <Avatar style={{ ...avatarStyles, backgroundColor: '#ff0000' }}>
+              {redScore}
+            </Avatar>
+            <Avatar style={{ ...avatarStyles, backgroundColor: '#00eeee' }}>
+              {blueScore}
+            </Avatar>
             <IconButton
               edge='start'
               className={classes.menuButton}
@@ -130,6 +123,7 @@ function App() {
                 const cardData = generatedData[i * 5 + j]
                 return (
                   <Card
+                    isSpyMaster={isSpyMaster}
                     key={cardData.word}
                     {...cardData}
                     onClick={() => {
@@ -166,9 +160,12 @@ function App() {
 
 export default App
 
-function Card({ word, selected, color, onClick }) {
+function Card({ word, selected, color, onClick, isSpyMaster }) {
+  const selection = isSpyMaster
+    ? `${selected ? ' green' : ` ${color}`}`
+    : `${selected ? ` ${color}` : ''}`
   return (
-    <td className={`card${selected ? ` ${color}` : ''}`} onClick={onClick}>
+    <td className={`card${selection}`} onClick={onClick}>
       {word}
     </td>
   )
