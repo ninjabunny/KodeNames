@@ -7,8 +7,10 @@ html {
 	font-family : "Verdana";
 }
 
-#board {
-	font-size : 1.4em;
+body {
+	margin : 0;
+	padding : 8px;
+	box-sizing : border-box;
 }
 
 button, input, span#first {
@@ -16,23 +18,26 @@ button, input, span#first {
 }
 
 #board {
-	width: 100%;
+	box-sizing : border-box;
+	width: 97%;
 	position : absolute;
 	bottom : 5px;
 	left : 2%;
 	right : 1%;
-	top : 48px;
+	height : calc(100% - 5% - 56px);
+	top : 56px;
+
+	font-size : 1.4em;
+	
 }
 
 #board div.row {
+	box-sizing : border-box;
 	height : 20%;
 }
 
-#board div.word a {
-	text-decoration: none;
-}
-
 #board div.word {
+	box-sizing : border-box;
 	position : relative;
 	text-align : center;
 	vertical-align : middle;
@@ -40,8 +45,8 @@ button, input, span#first {
 	border : 2px #DDDDDD solid;
 	border-radius : 5px;
 	font-weight : bold;
-	width : 19%;
-	height : 99%;
+	width : 20%;
+	height : 100%;
 	display : inline-block;
 	line-height : 99%;
 
@@ -114,12 +119,14 @@ button, input, span#first {
 }
 
 .redStarts{
-	border-left: #ff0000;
-	border-left-style: solid;
+	border: #ff0000;
+	border-style: solid;
+	border-radius: 8px;
 }
 .blueStarts{
-	border-left: #00eeee;
-	border-left-style: solid;
+	border: #00eeee;
+	border-style: solid;
+	border-radius: 8px;
 }
 
 #redScore{
