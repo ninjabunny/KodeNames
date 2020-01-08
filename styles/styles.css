@@ -11,6 +11,7 @@ body {
 	margin : 0;
 	padding : 8px;
 	box-sizing : border-box;
+}
 
 button, input, span#first {
 	font-size : 1.3em;	
