@@ -24,7 +24,7 @@ button, input, span#first {
 	bottom : 5px;
 	left : 2%;
 	right : 1%;
-	height : calc(100% - 5% - 48px);
+	height : calc(100% - 5% - 48px - 8px);
 	top : 48px;
 
 	font-size : 1.4em;
