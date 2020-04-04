@@ -7,7 +7,7 @@ a:visited {
 .word:hover {
   color: black;
   font-size: 1.5em;
-  background: lightgrey;
+  background: #fef5e7;
 } /* mouse over link */
 a:active {
   color: black;
@@ -21,6 +21,7 @@ body {
   margin: 0;
   padding: 8px;
   box-sizing: border-box;
+  background-color: #eae5e6;
 }
 
 button,
@@ -126,7 +127,7 @@ span#first {
 }
 
 .redStarts {
-  border: #b93452;
+  border: #ca405f;
   border-style: solid;
   border-radius: 8px;
 }
@@ -137,7 +138,7 @@ span#first {
 }
 
 #redScore {
-  color: #b93452;
+  color: #ca405f;
   font-size: 23px;
   flex-grow: 1;
   text-align: center;
