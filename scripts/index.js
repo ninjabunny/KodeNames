@@ -80,31 +80,6 @@ function removeItem(array, index) {
 }
 
 function createNewGame() {
-  var trs = []
-  for (var i = 0; i < NUMBER_OF_WORDS; i++) {
-    if (!trs[i % 5]) {
-      trs[i % 5] = ""
-    }
-    var randomNumber = Math.floor(Math.random() * sessionData.length)
-    var word = sessionData[randomNumber]
-    removeItem(sessionData, randomNumber)
-
-    wordsSelected.push(word)
-    trs[i % 5] +=
-      '<div class="word" id=\'' +
-      i +
-      "' onclick=\"clicked('" +
-      i +
-      '\')"><div><a href="#"><span class="ada"></span>' +
-      word +
-      "</a></div></div>"
-  }
-  //<a href="#"><span class="ada">Washington stimulates economic growth </span>Read me</a>
-  for (var i = 0; i < trs.length; i++) {
-    document.getElementById("board").innerHTML +=
-      '<div class="row">' + trs[i] + "</div>"
-  }
-
   //create teams
   for (var i = 0; i < 8; i++) {
     teams.push("red")
@@ -134,6 +109,34 @@ function createNewGame() {
 
   //shuffle teams
   shuffle(teams)
+
+  var trs = []
+  for (var i = 0; i < NUMBER_OF_WORDS; i++) {
+    if (!trs[i % 5]) {
+      trs[i % 5] = ""
+    }
+    var randomNumber = Math.floor(Math.random() * sessionData.length)
+    var word = sessionData[randomNumber]
+    removeItem(sessionData, randomNumber)
+
+    wordsSelected.push(word)
+    trs[i % 5] +=
+      '<div class="word" id=\'' +
+      i +
+      "' onclick=\"clicked('" +
+      i +
+      '\')"><div><a href="#"' +
+      " alt-text=" +
+      teams[i] +
+      ' ><span class="ada" ></span>' +
+      word +
+      "</a></div></div>"
+  }
+  //<a href="#"><span class="ada">Washington stimulates economic growth </span>Read me</a>
+  for (var i = 0; i < trs.length; i++) {
+    document.getElementById("board").innerHTML +=
+      '<div class="row">' + trs[i] + "</div>"
+  }
 
   updateScore()
 }
