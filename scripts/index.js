@@ -11,11 +11,13 @@ var spyMasterMode = false
 var sessionData = []
 var customData = []
 
-var COLOR_RED = "#b93452"
-var COLOR_YELLOW = "#d1bba3"
-var COLOR_BLUE = "#5478b1"
-var COLOR_BLACK = "#808080"
-var COLOR_GREEN = "#798e5c"
+var colors = {
+  red: "#ca405f",
+  yellow: "#d1bba3",
+  blue: "#5478b1",
+  black: "#808080",
+  green: "#798e5c",
+}
 
 //init
 $("#seed").keyup(function () {
@@ -78,6 +80,36 @@ function removeItem(array, index) {
 }
 
 function createNewGame() {
+  //create teams
+  for (var i = 0; i < 8; i++) {
+    teams.push("red")
+    teams.push("blue")
+  }
+
+  // one extra for one of the teams
+  if (Math.floor(Math.random() * data.length) % 2 === 0) {
+    teams.push("red")
+    // document.getElementById("team").style.color = COLOR_RED;
+    // document.getElementById("team").innerHTML = "RED";
+    $("#board").addClass("redStarts").removeClass("blueStarts")
+  } else {
+    teams.push("blue")
+    // document.getElementById("team").style.color = COLOR_BLUE;
+    // document.getElementById("team").innerHTML = "BLUE";
+    $("#board").addClass("blueStarts").removeClass("redStarts")
+  }
+
+  // add neturals
+  for (var i = 0; i < 7; i++) {
+    teams.push("yellow")
+  }
+
+  // push the assasin
+  teams.push("black")
+
+  //shuffle teams
+  shuffle(teams)
+
   var trs = []
   for (var i = 0; i < NUMBER_OF_WORDS; i++) {
     if (!trs[i % 5]) {
@@ -86,13 +118,17 @@ function createNewGame() {
     var randomNumber = Math.floor(Math.random() * sessionData.length)
     var word = sessionData[randomNumber]
     removeItem(sessionData, randomNumber)
+
     wordsSelected.push(word)
     trs[i % 5] +=
       '<div class="word" id=\'' +
       i +
       "' onclick=\"clicked('" +
       i +
-      '\')"><div><a href="#"><span class="ada"></span>' +
+      '\')"><div><a href="#"' +
+      " alt-text=" +
+      teams[i] +
+      ' ><span class="ada" ></span>' +
       word +
       "</a></div></div>"
   }
@@ -102,56 +138,28 @@ function createNewGame() {
       '<div class="row">' + trs[i] + "</div>"
   }
 
-  //create teams
-  for (var i = 0; i < 8; i++) {
-    teams.push(COLOR_RED)
-    teams.push(COLOR_BLUE)
-  }
-
-  // one extra for one of the teams
-  if (Math.floor(Math.random() * data.length) % 2 === 0) {
-    teams.push(COLOR_RED)
-    // document.getElementById("team").style.color = COLOR_RED;
-    // document.getElementById("team").innerHTML = "RED";
-    $("#board").addClass("redStarts").removeClass("blueStarts")
-  } else {
-    teams.push(COLOR_BLUE)
-    // document.getElementById("team").style.color = COLOR_BLUE;
-    // document.getElementById("team").innerHTML = "BLUE";
-    $("#board").addClass("blueStarts").removeClass("redStarts")
-  }
-
-  // add neturals
-  for (var i = 0; i < 7; i++) {
-    teams.push(COLOR_YELLOW)
-  }
-
-  // push the assasin
-  teams.push(COLOR_BLACK)
-
-  //shuffle teams
-  shuffle(teams)
-
   updateScore()
 }
 
 function clicked(value) {
   if (spyMasterMode) {
     //spymaster mode
-    document.getElementById(value).style.backgroundColor = COLOR_GREEN
+    document.getElementById(value).style.backgroundColor = colors.green
   } else {
     //guessers mode
     var word = wordsSelected[value]
     if (document.getElementById("confirm").checked) {
       if (window.confirm("Are sure you want to select '" + word + "'?")) {
-        document.getElementById(value).style.backgroundColor = teams[value]
-        if (teams[value] == "black") {
+        document.getElementById(value).style.backgroundColor =
+          colors[teams[value]]
+        if (colors[teams[value]] == "black") {
           document.getElementById(value).style.color = "white"
         }
       }
     } else {
-      document.getElementById(value).style.backgroundColor = teams[value]
-      if (teams[value] == "black") {
+      document.getElementById(value).style.backgroundColor =
+        colors[teams[value]]
+      if (colors[teams[value]] == "black") {
         document.getElementById(value).style.color = "white"
       }
     }
@@ -167,20 +175,20 @@ function updateScore() {
     redScore = 0
     $("div.word").each(function () {
       var color = $(this).css("background-color")
-      if (color === "rgb(0, 238, 238)") {
+      if (color === "rgb(84, 120, 177)") {
         blueScore++
       }
-      if (color === "rgb(255, 0, 0)") {
+      if (color === "rgb(202, 64, 95)") {
         redScore++
       }
     })
   } else {
     $("div.word").each(function () {
       var color = $(this).css("background-color")
-      if (color === "rgb(0, 238, 238)") {
+      if (color === "rgb(84, 120, 177)") {
         blueScore--
       }
-      if (color === "rgb(255, 0, 0)") {
+      if (color === "rgb(202, 64, 95)") {
         redScore--
       }
     })
@@ -205,8 +213,8 @@ function spyMaster() {
   //TODO: randomize or organize tiles for easier comparing
   spyMasterMode = true
   for (var i = 0; i < NUMBER_OF_WORDS; i++) {
-    document.getElementById(i).style.backgroundColor = teams[i]
-    if (teams[i] == "black") {
+    document.getElementById(i).style.backgroundColor = colors[teams[i]]
+    if (colors[teams[i]] == "black") {
       document.getElementById(i).style.color = "white"
     }
   }
