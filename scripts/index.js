@@ -41,6 +41,9 @@ function fire() {
     case "spanish":
       sessionData = spanishData.slice(0)
       break
+    case "french":
+      sessionData = frenchData.slice(0)
+      break
     case "2knouns":
       sessionData = data.slice(0)
       break
