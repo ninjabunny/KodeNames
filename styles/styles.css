@@ -14,7 +14,7 @@ body {
 }
 
 button, input, span#first {
-	font-size : 1.3em;	
+	font-size : 1.3em;
 }
 
 #board {
@@ -28,7 +28,7 @@ button, input, span#first {
 	top : 56px;
 
 	font-size : 1.4em;
-	
+
 }
 
 #board div.row {
@@ -51,7 +51,9 @@ button, input, span#first {
 	line-height : 99%;
 
 }
-
+#board div.word a {
+	text-decoration: none;
+}
 #board div.word div {
 
 	/* Internet Explorer 10 */
@@ -93,21 +95,21 @@ button, input, span#first {
 }
 
 #seed {
-	margin-right: 5px;	
+	margin-right: 5px;
 }
 
 #gameMode {
 	margin-left: 5px;
-	margin-right: 5px;	
+	margin-right: 5px;
 }
 
 #reset {
 	margin-left: 5px;
-	margin-right: 5px;	
+	margin-right: 5px;
 }
 #google_translate_element {
 	margin-left: 5px;
-	margin-right: 5px;	
+	margin-right: 5px;
 }
 .ada {
   height: 1px;
@@ -115,7 +117,7 @@ button, input, span#first {
   position: absolute;
   overflow: hidden;
   top: -10px;
- 
+
 }
 
 .redStarts{
@@ -130,14 +132,20 @@ button, input, span#first {
 }
 
 #redScore{
-	color: #ff0000;
+	padding-left: 10px;
+	color: #ff8a65;
 	font-size: 23px;
 	flex-grow: 1;
-	text-align: center;
+	text-align: left;
 }
 #blueScore{
-	text-align: center;
-	color: #00eeee;
+	padding-left: 10px;
+	text-align: left;
+	color: #26a69a;
 	font-size: 23px;
 	flex-grow: 1;
+}
+.team-name {
+	font-size: 20px;
+	margin-left: 30px;
 }

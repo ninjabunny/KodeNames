@@ -1,5 +1,5 @@
 /*
-Notes: 
+Notes:
 'data' is lazily imported from the html
 'seedrandom' is also imported from html. it gives deterministic random #s based on a seed set in fire()
 */
@@ -12,10 +12,16 @@ var spyMasterMode = false;
 var sessionData = [];
 var customData = [];
 
-var COLOR_RED = "#ff0000";
-var COLOR_YELLOW = "#ffff00";
-var COLOR_BLUE = "#00eeee";
-var COLOR_BLACK = "#808080";
+var RED_SQUARE = '.red-square';
+var BLUE_SQUARE = '.blue-square';
+
+var COLOR_RED = "#ff8a65";
+var COLOR_RED_RGB = 'rgb(255, 138, 101)';
+var COLOR_BLUE = "#26a69a";
+var COLOR_BLUE_RGB = 'rgb(38, 166, 154)';
+
+var COLOR_YELLOW = "#fff9c4";
+var COLOR_BLACK = "#37474f";
 var COLOR_GREEN = "#009000";
 
 //init
@@ -113,7 +119,7 @@ function createNewGame() {
 		$('#board').addClass('blueStarts').removeClass('redStarts');
 	}
 
-	// add neturals 
+	// add neturals
 	for (var i = 0; i < 7; i++) {
 		teams.push(COLOR_YELLOW);
 	}
@@ -159,20 +165,20 @@ function updateScore() {
 		redScore = 0;
 		$('div.word').each(function() {
 			var color = $(this).css('background-color');
-			if (color === 'rgb(0, 238, 238)') {
+			if (color === COLOR_BLUE_RGB) {
 				blueScore++;
 			}
-			if (color === 'rgb(255, 0, 0)') {
+			if (color === COLOR_RED_RGB) {
 				redScore++;
 			}
 		});
 	} else {
 		$('div.word').each(function() {
 			var color = $(this).css('background-color');
-			if (color === 'rgb(0, 238, 238)') {
+			if (color === COLOR_BLUE_RGB) {
 				blueScore--;
 			}
-			if (color === 'rgb(255, 0, 0)') {
+			if (color === COLOR_RED_RGB) {
 				redScore--;
 			}
 		});
@@ -183,8 +189,8 @@ function updateScore() {
 			redScore--;
 		}
 	}
-	$('#redScore').text(redScore);
-	$('#blueScore').text(blueScore);
+	$('#redScore').text(redScore + ' left');
+	$('#blueScore').text(blueScore + ' left');
 	if(redScore === 0){
 		$('#redScore').text('Winner!');
 	}
