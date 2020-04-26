@@ -20,8 +20,8 @@ var COLOR_RED_RGB = 'rgb(255, 138, 101)';
 var COLOR_BLUE = "#26a69a";
 var COLOR_BLUE_RGB = 'rgb(38, 166, 154)';
 
-var COLOR_YELLOW = "#fff9c4";
-var COLOR_BLACK = "#37474f";
+var COLOR_YELLOW = "#cfd8dc";
+var COLOR_BLACK = "#d50000";
 var COLOR_GREEN = "#009000";
 
 //init
@@ -110,13 +110,13 @@ function createNewGame() {
 		teams.push(COLOR_RED);
 		// document.getElementById("team").style.color = COLOR_RED;
 		// document.getElementById("team").innerHTML = "RED";
-		$('#board').addClass('redStarts').removeClass('blueStarts');
+		// $('#board').addClass('redStarts').removeClass('blueStarts');
 
 	} else {
 		teams.push(COLOR_BLUE);
 		// document.getElementById("team").style.color = COLOR_BLUE;
 		// document.getElementById("team").innerHTML = "BLUE";
-		$('#board').addClass('blueStarts').removeClass('redStarts');
+		// $('#board').addClass('blueStarts').removeClass('redStarts');
 	}
 
 	// add neturals

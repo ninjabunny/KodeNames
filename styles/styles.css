@@ -1,6 +1,6 @@
 a:link {color: black;}      /* unvisited link */
 a:visited {color: black}   /* visited link */
-.word:hover {color: black; font-size: 1.5em; background: lightgrey;}     /* mouse over link */
+.word:hover {color: black; font-size: 1.5em; background: #fff9c4;}     /* mouse over link */
 a:active {color: black;}    /* selected link */
 
 html {
@@ -11,6 +11,7 @@ body {
 	margin : 0;
 	padding : 8px;
 	box-sizing : border-box;
+	background-color: #eceff1;
 }
 
 button, input, span#first {
@@ -26,9 +27,11 @@ button, input, span#first {
 	right : 1%;
 	height : calc(100% - 5% - 56px);
 	top : 56px;
+	border: 2px solid #90a4ae;
+	border-radius: 5px;
 
 	font-size : 1.4em;
-
+	background-color: white;
 }
 
 #board div.row {
