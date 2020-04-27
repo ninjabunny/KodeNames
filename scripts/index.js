@@ -140,18 +140,26 @@ function clicked(value) {
 	} else {
 		//guessers mode
 		var word = wordsSelected[value];
+		var $selected = $("#" + value);
+		console.log($selected)
 		if (document.getElementById("confirm").checked) {
 			if (window.confirm("Are sure you want to select '" + word + "'?")) {
-				document.getElementById(value).style.backgroundColor = teams[value];
-				if (teams[value] == "black") {
-					document.getElementById(value).style.color = "white";
-				}
+				$selected.css("background-color", teams[value])
+				$selected.addClass('selected');
+				$selected.append('<i class="fas fa-camera"></i>')
+				// if (teams[value] == "black") {
+				// 	document.getElementById(value).style.color = "white";
+				// }
 			}
 		} else {
-			document.getElementById(value).style.backgroundColor = teams[value];
-			if (teams[value] == "black") {
-				document.getElementById(value).style.color = "white";
-			}
+			// document.getElementById(value)
+			// $selected.style.backgroundColor = teams[value];
+			$selected.css("background-color", teams[value])
+			$selected.addClass('selected');
+			$selected.prepend('<i class="icon fas fa-user-secret"></i>')
+			// if (teams[value] == "black") {
+			// 	document.getElementById(value).style.color = "white";
+			// }
 		}
 	}
 	updateScore();

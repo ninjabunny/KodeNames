@@ -1,8 +1,15 @@
 a:link {color: black;}      /* unvisited link */
 a:visited {color: black}   /* visited link */
-.word:hover {color: black; font-size: 1.5em; background: #fff9c4;}     /* mouse over link */
+#board div.word:hover {
+	color: black;
+	font-size: 1.3em;
+	background-color: #fff9c4; /* #fff176;*/
+	border: 2px solid #01579b;
+}     /* mouse over link */
 a:active {color: black;}    /* selected link */
-
+#board div.word:hover a {
+/*	color: #01579b;*/
+}
 html {
 	font-family : "Verdana";
 }
@@ -17,6 +24,25 @@ body {
 button, input, span#first {
 	font-size : 1.3em;
 }
+#board .word.selected:hover {
+ font-size: 1em;
+ border : 4px #9e9e9e solid; /*#e65100*/
+}
+#board .word.selected {
+ border : 4px #9e9e9e solid; /*#e65100*/
+}
+#board .word.selected a {
+	font-size: 0.8em;
+ color: #37474f; /*#616161;*/
+}
+.icon {
+	color: #e5e5e5;
+	font-size: 2.5em;
+	display: inline;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}
 
 #board {
 	box-sizing : border-box;
@@ -25,12 +51,13 @@ button, input, span#first {
 	bottom : 5px;
 	left : 2%;
 	right : 1%;
-	height : calc(100% - 5% - 56px);
+	height : calc(100% - 10% - 56px);
 	top : 56px;
-	border: 2px solid #90a4ae;
+/*	border: 2px solid #90a4ae;*/
 	border-radius: 5px;
+	float: left;
 
-	font-size : 1.4em;
+	font-size : 1.7em;
 	background-color: white;
 }
 
@@ -45,13 +72,17 @@ button, input, span#first {
 	text-align : center;
 	vertical-align : middle;
 	cursor : pointer;
-	border : 2px #DDDDDD solid;
+	border : 1px #ffa000 solid; /*#e65100*/
+	background-color: #fff8e1;/*#ffe0b2;*/
 	border-radius : 5px;
 	font-weight : bold;
-	width : 20%;
+	width : 19%;
 	height : 100%;
-	display : inline-block;
+	float: left;
+/*	display : inline-block;*/
 	line-height : 99%;
+	box-shadow: 3px 3px #e5e5e5;
+	margin: 6px;
 
 }
 #board div.word a {
