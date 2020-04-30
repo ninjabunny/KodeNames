@@ -1,22 +1,23 @@
-a:link {color: black;}      /* unvisited link */
-a:visited {color: black}   /* visited link */
+a:link {color: #263238;}      /* unvisited link */
+a:visited {color: #263238}   /* visited link */
 #board div.word:hover {
-	color: black;
 	font-size: 1.3em;
 	background-color: #fff9c4; /* #fff176;*/
 	border: 2px solid #01579b;
 }     /* mouse over link */
-a:active {color: black;}    /* selected link */
+a:active {color: #263238}    /* selected link */
 
 html {
-	font-family : "Verdana";
+	font-family : Helvetica Neue, Helvetica, Arial, sans-serif;
+	/*font-family: "Comic Sans MS", cursive, sans-serif*/
 }
 
 body {
 	margin : 0;
 	padding : 8px;
 	box-sizing : border-box;
-	background-color: #eceff1;
+/*	background-color: #eceff1;*/
+	background-color: #fafafa;
 }
 
 button, input, span#first {
@@ -30,17 +31,18 @@ button, input, span#first {
  border : 4px #9e9e9e solid;
 }
 #board .word.selected a {
-	opacity: 0.3;
+	opacity: 0.4;
 	position: absolute;
-	bottom: 0;
+	bottom: 4px;
   left: 50%;
   transform: translate(-50%, 0);
 	font-size: 0.8em;
+	color:black;
 
 }
 }
 #board .word.selected a:hover {
-	opacity: 0.4;
+	opacity: 0.6;
 	position: absolute;
 	font-size: 0.8em;
 	color: white;
@@ -58,7 +60,7 @@ button, input, span#first {
 	text-align : center;
 	margin: 0 auto;
 
-	opacity: 0.8;
+	opacity: 0.9;
 }
 #board .word.red-square.selected, #board.spy-master .word.red-square {
 	background-color: #ff8a65;
@@ -75,6 +77,7 @@ button, input, span#first {
 
 #board {
 	box-sizing : border-box;
+	margin: 5 auto;
 	width: 97%;
 	position : absolute;
 	bottom : 5px;
@@ -83,11 +86,12 @@ button, input, span#first {
 	height : calc(100% - 10% - 56px);
 	top : 56px;
 /*	border: 2px solid #90a4ae;*/
-	border-radius: 5px;
-	float: left;
+/*	border-radius: 5px;
+	float: left;*/
 
-	font-size : 1.7em;
-	background-color: white;
+	font-size : 1.8vw;
+/*	background-color: white;*/
+	background-color: #fafafa;
 }
 
 #board div.word {
@@ -96,17 +100,17 @@ button, input, span#first {
 	text-align : center;
 	vertical-align : middle;
 	cursor : pointer;
-	border : 1px #ffa000 solid; /*#e65100*/
+	border : 2px #ffd54f solid; /*#e65100*/
 	background-color: #fff8e1;/*#ffe0b2;*/
 	border-radius : 5px;
 	font-weight : bold;
-	width : 19%;
-	height : 19%;
+	width : 18.5%;
+	height : 18.5%;
 	float: left;
 /*	display : inline-block;*/
 	line-height : 99%;
 	box-shadow: 3px 3px #e5e5e5;
-	margin: 6px;
+	margin: 7px;
 
 }
 #board div.word a {
@@ -139,7 +143,7 @@ button, input, span#first {
 }
 
 #header a {
-	font-size:20px;
+	font-size: 20px;
 	margin-left: 5px;
 	margin-right: 8px;
 	font-weight: bold;
@@ -147,6 +151,7 @@ button, input, span#first {
 #header {
 	display: flex;
 	align-items: center;
+	height: 50px;
 }
 #spymaster {
 	margin-left: 5px;
@@ -177,7 +182,7 @@ button, input, span#first {
   top: -10px;
 
 }
-.redStarts{
+/*.redStarts{
 	border: #ff0000;
 	border-style: solid;
 	border-radius: 8px;
@@ -186,23 +191,23 @@ button, input, span#first {
 	border: #00eeee;
 	border-style: solid;
 	border-radius: 8px;
-}
+}*/
 
 #redScore{
-	padding-left: 10px;
 	color: #ff8a65;
-	font-size: 23px;
-	flex-grow: 1;
-	text-align: left;
 }
 #blueScore{
+	color: #26a69a;
+}
+.score {
 	padding-left: 10px;
 	text-align: left;
-	color: #26a69a;
-	font-size: 23px;
+	font-size: 2vw;
 	flex-grow: 1;
 }
 .team-name {
-	font-size: 20px;
+/*	font-family: Helvetica, Arial, sans-serif;*/
+	font-size: 2vw;
 	margin-left: 30px;
+	font-weight: 500;
 }

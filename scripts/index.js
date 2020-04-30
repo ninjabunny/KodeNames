@@ -1,23 +1,5 @@
 
-var wordsSelected = [];
-var teams = [];
-var NUMBER_OF_WORDS = 25;
-var spyMasterMode = false;
-var sessionData = [];
-var customData = [];
-
-var RED_SQUARE = '.red-square';
-var BLUE_SQUARE = '.blue-square';
-
-var COLOR_RED = "#ff8a65";
-var COLOR_RED_RGB = 'rgb(255, 138, 101)';
-var COLOR_BLUE = "#26a69a";
-var COLOR_BLUE_RGB = 'rgb(38, 166, 154)';
-
-var COLOR_YELLOW = "#cfd8dc";
-var COLOR_BLACK = "#d50000";
-var COLOR_GREEN = "#009000";
-
+const NUMBER_OF_WORDS = 25;
 const RED = 'red-square'
 const BLUE = 'blue-square'
 const CIVILIAN = 'civilian-square'
@@ -26,6 +8,13 @@ const CIVILIAN_COUNT = 7
 const ASSASSIN_COUNT = 1
 const SELECTED = 'selected'
 const SPYMASTER = 'spy-master'
+const $board = $('#board');
+const $seed = $('#seed');
+
+const $spymaster = $("#spymaster")
+const $redScore = $('#redScore')
+const $blueScore = $('#blueScore')
+const $reset =$('#reset')
 
 const ICONS = {
 	[RED] : 'fa-user-secret',
@@ -37,12 +26,12 @@ const ICONS = {
 var answers = {};
 
 
-$("#seed").val(Math.floor(Math.random() * 1000));
+$seed.val(Math.floor(Math.random() * 1000));
 createGame();
 
 function createGame() {
-	$("#board").empty();
-	const seed = $("#seed").val();
+	$board.empty();
+	const seed = $seed.val();
 	// Math.seedrandom(seed.toLowerCase());
 	const wordList = seededShuffle(defaultData.slice(0), seed).slice(0, 25);
 	console.log(wordList.length)
@@ -68,7 +57,7 @@ function createGame() {
 		const type = answers[word]
 		const square = `<div class="js-word word ${type}" id='${word}'><div><i class="icon fas ${ICONS[type]}"></i><a href="#"><span class="ada"></span>${word}</a></div></div>`
 
-		$("#board").append(square);
+		$board.append(square);
 	});
 
 	updateScore();
@@ -80,11 +69,11 @@ $(document).on('dblclick', '.js-word', function() {
 	updateScore();
 });
 
-$("#spymaster").on('click', function (){
-	$("#board").toggleClass(SPYMASTER)
+$spymaster.on('click', function (){
+	$board.toggleClass(SPYMASTER)
 });
 
-$('#reset').on('click', function(){
+$reset.on('click', function(){
 	createGame();
 });
 
@@ -93,22 +82,20 @@ function updateScore() {
 	const redLeft = leftForColor(RED)
 	const blueLeft = leftForColor(BLUE)
 
-	$('#redScore').text(redLeft + ' left');
-	$('#blueScore').text(blueLeft + ' left');
-	if(redLeft === 0){
-		$('#redScore').text('Winner!');
-	}
-	if(blueLeft === 0){
-		$('#blueScore').text('Winner!');
-	}
+	$redScore.text(scoreText(redLeft));
+	$blueScore.text(scoreText(blueLeft));
 }
 
 function leftForColor(color) {
 	return $("." + color).length - $("." + color + "." + SELECTED).length
 }
 
+function scoreText(score) {
+	return score === 0 ? 'Winner!' : score + ' left'
+}
+
 //enable pressing 'Enter' on seed field
-$('#seed').on('keyup', function(e) {
+$seed.on('keyup', function(e) {
 	if (!e) e = window.event;
 	var keyCode = e.keyCode || e.which;
 	if (keyCode == '13') {
