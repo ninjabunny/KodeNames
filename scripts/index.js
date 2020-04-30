@@ -1,11 +1,11 @@
 
 const NUMBER_OF_WORDS = 25;
+const CIVILIAN_COUNT = 7
+const ASSASSIN_COUNT = 1
 const RED = 'red-square'
 const BLUE = 'blue-square'
 const CIVILIAN = 'civilian-square'
 const ASSASSIN = 'assassin-square'
-const CIVILIAN_COUNT = 7
-const ASSASSIN_COUNT = 1
 const SELECTED = 'selected'
 const SPYMASTER = 'spy-master'
 const $board = $('#board');
@@ -25,16 +25,14 @@ const ICONS = {
 
 var answers = {};
 
-
 $seed.val(Math.floor(Math.random() * 1000));
 createGame();
 
 function createGame() {
   $board.empty();
   const seed = $seed.val();
-  // Math.seedrandom(seed.toLowerCase());
-  const wordList = seededShuffle(defaultData.slice(0), seed).slice(0, 25);
-  console.log(wordList.length)
+  const wordList = seededShuffle(defaultData.slice(0), seed).slice(0, NUMBER_OF_WORDS);
+
   const evenSeed = (seed % 2) === 0
   const redCount = evenSeed ? 9 : 8;
   const blueCount = evenSeed ? 8 : 9;
@@ -76,7 +74,6 @@ $spymaster.on('click', function (){
 $reset.on('click', function(){
   createGame();
 });
-
 
 function updateScore() {
   const redLeft = leftForColor(RED)
