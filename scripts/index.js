@@ -164,7 +164,7 @@ function createGame() {
 
 	wordList.forEach((word) => {
 		const type = answers[word]
-		const square = `<div class="word ${type}" id='${word}' onclick="clicked('${word}')"><div><i class="icon fas ${ICONS[type]}"></i><a href="#"><span class="ada"></span>${word}</a></div></div>`
+		const square = `<div class="js-word word ${type}" id='${word}'><div><i class="icon fas ${ICONS[type]}"></i><a href="#"><span class="ada"></span>${word}</a></div></div>`
 
 		$("#board").append(square);
 	});
@@ -174,11 +174,10 @@ function createGame() {
 	// spyMasterMode = false;
 	// $("#board").innerHTML = "";
 
-
-
-
-
 }
+$('.js-word').dblclick(function() {
+	$(this).addClass('selected');
+});
 
 // function createNewGame() {
 // 	var trs = [];
