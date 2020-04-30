@@ -30,7 +30,8 @@ const CIVILIAN = 'civilian-square'
 const ASSASSIN = 'assassin-square'
 const CIVILIAN_COUNT = 7
 const ASSASSIN_COUNT = 1
-var answers = {}
+const SELECTED = 'selected'
+const SPYMASTER = 'spy-master'
 
 const ICONS = {
 	[RED] : 'fa-user-secret',
@@ -38,6 +39,8 @@ const ICONS = {
 	[CIVILIAN] : 'fa-walking',
 	[ASSASSIN] : 'fa-skull-crossbones'
 }
+
+var answers = {};
 
 // get seed
 // get 25 words
@@ -63,44 +66,7 @@ const ICONS = {
 
 
 $("#seed").val(Math.floor(Math.random() * 1000));
-fire();
-
-function fire() {
-	//get seed and set the seed for randomizer
-	// var seed = document.getElementById("seed").value;
-	// Math.seedrandom(seed.toLowerCase());
-
-	// var option = $('#gameMode :selected').val();
-	// switch (option) {
-	// 	case 'spanish':
-	// 		sessionData = spanishData.slice(0);
-	// 		break;
-	// 	case '2knouns':
-	// 		sessionData = data.slice(0);
-	// 		break;
-	// 	case 'movies':
-	// 		sessionData = movieData.slice(0);
-	// 		break;
-	// 	case 'custom':
-	// 		if (customData.length === 0) {
-	// 			var customWordList = prompt("Please enter custom word list. The list will be saved until your refresh your browser. (The words MUST be delimanted by spaces). eg: cat dog mouse", "Enter words here");
-	// 			customData = customWordList.split(' ');
-	// 		}
-	// 		sessionData = customData.slice(0);
-	// 		break;
-	// 	default:
-			// sessionData = defaultData.slice(0);
-	// }
-
-	// wordsSelected = [];
-	// teams = [];
-	// spyMasterMode = false;
-	// document.getElementById("board").innerHTML = "";
-
-	//fire new board
-	// updateScore();
-	createGame();
-}
+createGame();
 
 //not used, but probably useful at some point
 // function removeItem(array, index) {
@@ -110,7 +76,7 @@ function fire() {
 // 	}
 // }
 
-var answers = {};
+
 
 // copied from here: https://github.com/yixizhang/seed-shuffle
 // edited so it doesn't mutate the original array
@@ -139,7 +105,7 @@ function seededShuffle(arrayInput, seed) {
 
 
 function createGame() {
-	$("#board").html = "";
+	$("#board").empty();
 	const seed = $("#seed").val();
 	// Math.seedrandom(seed.toLowerCase());
 	const wordList = seededShuffle(defaultData.slice(0), seed).slice(0, 25);
@@ -169,14 +135,17 @@ function createGame() {
 		$("#board").append(square);
 	});
 
-
-
-	// spyMasterMode = false;
-	// $("#board").innerHTML = "";
+	updateScore();
 
 }
-$('.js-word').dblclick(function() {
-	$(this).addClass('selected');
+
+$(document).on('dblclick', '.js-word', function() {
+	$(this).addClass(SELECTED);
+	updateScore();
+});
+
+$("#spymaster").on('click', function (){
+	$("#board").toggleClass(SPYMASTER)
 });
 
 // function createNewGame() {
@@ -230,117 +199,96 @@ $('.js-word').dblclick(function() {
 // 	updateScore();
 // }
 
-function clicked(value) {
-	if (spyMasterMode) {
-		//spymaster mode
-		document.getElementById(value).style.backgroundColor = COLOR_GREEN;
-	} else {
-		//guessers mode
-		var word = wordsSelected[value];
-		var $selected = $("#" + value);
-		console.log($selected)
-		if (document.getElementById("confirm").checked) {
-			if (window.confirm("Are sure you want to select '" + word + "'?")) {
-				// $selected.css("background-color", teams[value])
-				$selected.addClass('selected');
-				// if (teams[value] == "black") {
-				// 	document.getElementById(value).style.color = "white";
-				// }
-			}
-		} else {
-			// document.getElementById(value)
-			// $selected.style.backgroundColor = teams[value];
-			// $selected.css("background-color", teams[value])
-			$selected.addClass('selected');
-			// $selected.prepend('<i class="icon fas fa-user-secret"></i>')
-			// if (teams[value] == "black") {
-			// 	document.getElementById(value).style.color = "white";
-			// }
-		}
-	}
-	updateScore();
-}
+// function clicked(value) {
+// 	if (spyMasterMode) {
+// 		//spymaster mode
+// 		document.getElementById(value).style.backgroundColor = COLOR_GREEN;
+// 	} else {
+// 		//guessers mode
+// 		var word = wordsSelected[value];
+// 		var $selected = $("#" + value);
+// 		console.log($selected)
+// 		if (document.getElementById("confirm").checked) {
+// 			if (window.confirm("Are sure you want to select '" + word + "'?")) {
+// 				// $selected.css("background-color", teams[value])
+// 				$selected.addClass('selected');
+// 				// if (teams[value] == "black") {
+// 				// 	document.getElementById(value).style.color = "white";
+// 				// }
+// 			}
+// 		} else {
+// 			// document.getElementById(value)
+// 			// $selected.style.backgroundColor = teams[value];
+// 			// $selected.css("background-color", teams[value])
+// 			$selected.addClass('selected');
+// 			// $selected.prepend('<i class="icon fas fa-user-secret"></i>')
+// 			// if (teams[value] == "black") {
+// 			// 	document.getElementById(value).style.color = "white";
+// 			// }
+// 		}
+// 	}
+// 	updateScore();
+// }
 
 function updateScore() {
-	var blueScore = 9;
-	var redScore = 9;
-	if (spyMasterMode) {
-		blueScore = 0;
-		redScore = 0;
-		$('div.word').each(function() {
-			var color = $(this).css('background-color');
-			if (color === COLOR_BLUE_RGB) {
-				blueScore++;
-			}
-			if (color === COLOR_RED_RGB) {
-				redScore++;
-			}
-		});
-	} else {
-		$('div.word').each(function() {
-			var color = $(this).css('background-color');
-			if (color === COLOR_BLUE_RGB) {
-				blueScore--;
-			}
-			if (color === COLOR_RED_RGB) {
-				redScore--;
-			}
-		});
+	const redLeft = leftForColor(RED)
+	const blueLeft = leftForColor(BLUE)
 
-		if ($('.redStarts').length === 1) {
-			blueScore--;
-		} else {
-			redScore--;
-		}
-	}
-	$('#redScore').text(redScore + ' left');
-	$('#blueScore').text(blueScore + ' left');
-	if(redScore === 0){
+	$('#redScore').text(redLeft + ' left');
+	$('#blueScore').text(blueLeft + ' left');
+	if(redLeft === 0){
 		$('#redScore').text('Winner!');
 	}
-	if(blueScore === 0){
+	if(blueLeft === 0){
 		$('#blueScore').text('Winner!');
 	}
 }
 
-function spyMaster() {
-	//TODO: randomize or organize tiles for easier comparing
-	spyMasterMode = true;
-	for (var i = 0; i < NUMBER_OF_WORDS; i++) {
-		document.getElementById(i).style.backgroundColor = teams[i];
-		if (teams[i] == "black") {
-			document.getElementById(i).style.color = "white";
-		}
-	}
+function leftForColor(color) {
+	return $("." + color).length - $("." + color + "." + SELECTED).length
 }
 
-function shuffle(array) {
-	var currentIndex = array.length,
-		temporaryValue, randomIndex;
+// function spyMaster() {
+// 	//TODO: randomize or organize tiles for easier comparing
+// 	spyMasterMode = true;
+// 	for (var i = 0; i < NUMBER_OF_WORDS; i++) {
+// 		document.getElementById(i).style.backgroundColor = teams[i];
+// 		if (teams[i] == "black") {
+// 			document.getElementById(i).style.color = "white";
+// 		}
+// 	}
+// }
 
-	// While there remain elements to shuffle...
-	while (0 !== currentIndex) {
+// function shuffle(array) {
+// 	var currentIndex = array.length,
+// 		temporaryValue, randomIndex;
 
-		// Pick a remaining element...
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
+// 	// While there remain elements to shuffle...
+// 	while (0 !== currentIndex) {
 
-		// And swap it with the current element.
-		temporaryValue = array[currentIndex];
-		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
-	}
+// 		// Pick a remaining element...
+// 		randomIndex = Math.floor(Math.random() * currentIndex);
+// 		currentIndex -= 1;
 
-	return array;
-}
+// 		// And swap it with the current element.
+// 		temporaryValue = array[currentIndex];
+// 		array[currentIndex] = array[randomIndex];
+// 		array[randomIndex] = temporaryValue;
+// 	}
+
+// 	return array;
+// }
 
 //enable pressing 'Enter' on seed field
-document.getElementById('seed').onkeypress = function(e) {
+$('#seed').on('keyup', function(e) {
 	if (!e) e = window.event;
 	var keyCode = e.keyCode || e.which;
 	if (keyCode == '13') {
 		// Enter pressed
-		fire();
+		createGame();
 		return false;
 	}
-}
+});
+$('#reset').on('click', function(){
+	createGame();
+});
