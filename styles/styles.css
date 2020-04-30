@@ -9,14 +9,12 @@ a:active {color: #263238}    /* selected link */
 
 html {
 	font-family : Helvetica Neue, Helvetica, Arial, sans-serif;
-	/*font-family: "Comic Sans MS", cursive, sans-serif*/
 }
 
 body {
 	margin : 0;
 	padding : 8px;
 	box-sizing : border-box;
-/*	background-color: #eceff1;*/
 	background-color: #fafafa;
 }
 
@@ -85,12 +83,8 @@ button, input, span#first {
 	right : 1%;
 	height : calc(100% - 10% - 56px);
 	top : 56px;
-/*	border: 2px solid #90a4ae;*/
-/*	border-radius: 5px;
-	float: left;*/
 
 	font-size : 1.8vw;
-/*	background-color: white;*/
 	background-color: #fafafa;
 }
 
@@ -107,7 +101,6 @@ button, input, span#first {
 	width : 18.5%;
 	height : 18.5%;
 	float: left;
-/*	display : inline-block;*/
 	line-height : 99%;
 	box-shadow: 3px 3px #e5e5e5;
 	margin: 7px;
@@ -182,16 +175,6 @@ button, input, span#first {
   top: -10px;
 
 }
-/*.redStarts{
-	border: #ff0000;
-	border-style: solid;
-	border-radius: 8px;
-}
-.blueStarts{
-	border: #00eeee;
-	border-style: solid;
-	border-radius: 8px;
-}*/
 
 #redScore{
 	color: #ff8a65;
