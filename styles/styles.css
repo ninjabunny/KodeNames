@@ -129,15 +129,22 @@ button, input, span#first {
 	border-radius: 8px;
 }
 
-#redScore{
-	color: #ff0000;
+.teamScore{
+	padding: 0.25rem 0.5rem;
+	border-radius: 5px;
 	font-size: 23px;
-	flex-grow: 1;
 	text-align: center;
+	flex-grow: 1;
+	color: #fff;
+}
+
+.teamScore + .teamScore {
+	margin-left: 0.5rem;
+}
+
+#redScore{
+	background: #ff0000;
 }
 #blueScore{
-	text-align: center;
-	color: #00eeee;
-	font-size: 23px;
-	flex-grow: 1;
+	background: #00eeee;
 }
