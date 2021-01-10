@@ -53,10 +53,10 @@ function fire() {
     case "custom":
       if (customData.length === 0) {
         var customWordList = prompt(
-          "Please enter custom word list. The list will be saved until your refresh your browser. (The words MUST be delimanted by spaces). eg: cat dog mouse",
+          "Please enter custom word list. The list will be saved until your refresh your browser. (The words MUST be delimiter by commas). eg: cat,dog,mouse",
           "Enter words here"
         )
-        customData = customWordList.split(" ")
+        customData = customWordList.split(",")
       }
       sessionData = customData.slice(0)
       break
