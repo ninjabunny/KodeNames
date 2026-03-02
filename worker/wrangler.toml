@@ -1,0 +1,14 @@
+name = "kodenames-ai-words"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+account_id = "01a152a6df894f6da339609b40c59c19"
+workers_dev = true
+
+[vars]
+CF_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+WORDS_RULE_VERSION = "v5"
+
+# Create a KV namespace and set the ID below for deterministic seed caching.
+[[kv_namespaces]]
+binding = "WORDS_KV"
+id = "aa56c16f56644e01b07ea4f52e63b930"

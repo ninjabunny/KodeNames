@@ -1,5 +1,5 @@
 /*
-Notes: 
+Notes:
 'data' is lazily imported from the html
 'seedrandom' is also imported from html. it gives deterministic random #s based on a seed set in fire()
 */
@@ -10,6 +10,7 @@ var NUMBER_OF_WORDS = 25
 var spyMasterMode = false
 var sessionData = []
 var customData = []
+var FIRE_REQUEST_ID = 0
 
 var colors = {
   red: "#ca405f",
@@ -19,8 +20,18 @@ var colors = {
   green: "#798e5c",
 }
 
+var AI_MODE = "ai"
+var AI_ENDPOINT = window.KODENAMES_AI_ENDPOINT || "/api/words"
+var AI_REQUEST_TIMEOUT_MS = 8000
+
 //init
-$("#seed").keyup(function () {
+$("#seed").keyup(function (e) {
+  var option = $("#gameMode :selected").val()
+  var keyCode = e && (e.keyCode || e.which)
+  if (option === AI_MODE && keyCode !== 13) {
+    // Avoid calling AI on every keystroke. AI mode should update on Enter/Reset.
+    return
+  }
   fire()
 })
 
@@ -31,37 +42,149 @@ $("#gameMode").change(function () {
 $("#seed").val(Math.floor(Math.random() * 1000))
 fire()
 
-function fire() {
+function setStatus(text, isError) {
+  var statusElement = document.getElementById("statusText")
+  if (!statusElement) {
+    return
+  }
+  statusElement.textContent = text || ""
+  if (isError) {
+    statusElement.classList.add("error")
+  } else {
+    statusElement.classList.remove("error")
+  }
+}
+
+function normalizeAIWords(rawWords, requestedCount) {
+  if (!Array.isArray(rawWords)) {
+    return null
+  }
+  var seen = {}
+  var cleaned = []
+  for (var i = 0; i < rawWords.length; i++) {
+    var text = String(rawWords[i]).replace(/\s+/g, " ").trim()
+    if (!text) {
+      continue
+    }
+    var key = text.toLowerCase()
+    if (seen[key]) {
+      continue
+    }
+    seen[key] = true
+    cleaned.push(text)
+  }
+  if (cleaned.length < requestedCount) {
+    return null
+  }
+  return cleaned.slice(0, requestedCount)
+}
+
+async function fetchAIWords(seed, requestedCount, requestId) {
+  setStatus("Generating AI words...", false)
+  var controller = new AbortController()
+  var timeoutHandle = setTimeout(function () {
+    controller.abort()
+  }, AI_REQUEST_TIMEOUT_MS)
+
+  try {
+    var url =
+      AI_ENDPOINT +
+      "?seed=" +
+      encodeURIComponent(seed || "") +
+      "&count=" +
+      encodeURIComponent(requestedCount)
+    var response = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+      },
+      signal: controller.signal,
+    })
+    if (!response.ok) {
+      throw new Error("AI response status " + response.status)
+    }
+
+    var payload = await response.json()
+    var words = normalizeAIWords(payload.words, requestedCount)
+    if (!words) {
+      throw new Error("AI response did not return enough unique words.")
+    }
+    if (requestId !== FIRE_REQUEST_ID) {
+      return null
+    }
+
+    if (payload.source === "cache") {
+      setStatus("AI words loaded from cache (seed: " + seed + ").", false)
+    } else if (payload.source === "fallback") {
+      setStatus("Using backup word set (seed: " + seed + ").", false)
+    } else {
+      setStatus("AI words generated (seed: " + seed + ").", false)
+    }
+    return words
+  } catch (error) {
+    if (requestId === FIRE_REQUEST_ID) {
+      setStatus("AI unavailable. Using default words (seed: " + seed + ").", true)
+    }
+    return defaultData.slice(0)
+  } finally {
+    clearTimeout(timeoutHandle)
+  }
+}
+
+async function fire() {
+  var requestId = ++FIRE_REQUEST_ID
+
   //get seed and set the seed for randomizer
   var seed = document.getElementById("seed").value
-  Math.seedrandom(seed.toLowerCase())
+  var normalizedSeed = (seed || "").trim().toLowerCase()
+  Math.seedrandom(normalizedSeed)
 
   var option = $("#gameMode :selected").val()
   switch (option) {
+    case "ai":
+      var aiWords = await fetchAIWords(normalizedSeed, NUMBER_OF_WORDS, requestId)
+      if (requestId !== FIRE_REQUEST_ID || aiWords === null) {
+        return
+      }
+      sessionData = aiWords.slice(0)
+      break
     case "spanish":
+      setStatus("", false)
       sessionData = spanishData.slice(0)
       break
     case "french":
+      setStatus("", false)
       sessionData = frenchData.slice(0)
       break
     case "2knouns":
+      setStatus("", false)
       sessionData = data.slice(0)
       break
     case "movies":
+      setStatus("", false)
       sessionData = movieData.slice(0)
       break
     case "custom":
+      setStatus("", false)
       if (customData.length === 0) {
         var customWordList = prompt(
           "Please enter custom word list. The list will be saved until your refresh your browser. (The words MUST be delimiter by commas). eg: cat,dog,mouse",
           "Enter words here"
         )
-        customData = customWordList.split(",")
+        if (customWordList) {
+          customData = customWordList.split(",")
+        }
       }
-      sessionData = customData.slice(0)
+      sessionData = (customData.length > 0 ? customData : defaultData).slice(0)
       break
     default:
+      setStatus("", false)
       sessionData = defaultData.slice(0)
+  }
+
+  if (requestId !== FIRE_REQUEST_ID) {
+    return
   }
 
   wordsSelected = []
@@ -92,18 +215,14 @@ function createNewGame() {
   // one extra for one of the teams
   if (Math.floor(Math.random() * data.length) % 2 === 0) {
     teams.push("red")
-    // document.getElementById("team").style.color = COLOR_RED;
-    // document.getElementById("team").innerHTML = "RED";
     $("#board").addClass("redStarts").removeClass("blueStarts")
   } else {
     teams.push("blue")
-    // document.getElementById("team").style.color = COLOR_BLUE;
-    // document.getElementById("team").innerHTML = "BLUE";
     $("#board").addClass("blueStarts").removeClass("redStarts")
   }
 
   // add neturals
-  for (var i = 0; i < 7; i++) {
+  for (var j = 0; j < 7; j++) {
     teams.push("yellow")
   }
 
@@ -114,31 +233,31 @@ function createNewGame() {
   shuffle(teams)
 
   var trs = []
-  for (var i = 0; i < NUMBER_OF_WORDS; i++) {
-    if (!trs[i % 5]) {
-      trs[i % 5] = ""
+  for (var k = 0; k < NUMBER_OF_WORDS; k++) {
+    if (!trs[k % 5]) {
+      trs[k % 5] = ""
     }
     var randomNumber = Math.floor(Math.random() * sessionData.length)
     var word = sessionData[randomNumber]
     removeItem(sessionData, randomNumber)
 
     wordsSelected.push(word)
-    trs[i % 5] +=
+    trs[k % 5] +=
       '<div class="word" id=\'' +
-      i +
+      k +
       "' onclick=\"clicked('" +
-      i +
-      '\')"><div><a href="#"' +
+      k +
+      '\')\"><div><a href="#"' +
       " alt-text=" +
-      teams[i] +
+      teams[k] +
       ' ><span class="ada" ></span>' +
       word +
       "</a></div></div>"
   }
-  //<a href="#"><span class="ada">Washington stimulates economic growth </span>Read me</a>
-  for (var i = 0; i < trs.length; i++) {
+
+  for (var l = 0; l < trs.length; l++) {
     document.getElementById("board").innerHTML +=
-      '<div class="row">' + trs[i] + "</div>"
+      '<div class="row">' + trs[l] + "</div>"
   }
 
   updateScore()
@@ -160,8 +279,7 @@ function clicked(value) {
         }
       }
     } else {
-      document.getElementById(value).style.backgroundColor =
-        colors[teams[value]]
+      document.getElementById(value).style.backgroundColor = colors[teams[value]]
       if (colors[teams[value]] == "black") {
         document.getElementById(value).style.color = "white"
       }
